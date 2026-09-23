@@ -3,3 +3,7 @@
 **/[oO]bj/
 *.user
 *.suo
+
+# bruno 
+**/tests/bruno/.env
+**/tests/bruno/environments/*.secret.bru

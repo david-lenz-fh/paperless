@@ -15,6 +15,16 @@ namespace api
         {
             _documentService = docService;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(UploadDocumentRequest document)
+        {
+            if (document.file == null || document.file.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+            return Ok("Hi");
+        }
         [HttpGet]
         public IActionResult GetAllDocuments()
         {
@@ -27,8 +37,19 @@ namespace api
             return Ok("Hello World");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadFile(UploadDocumentRequest document)
+
+        [HttpPut]
+        public async Task<IActionResult> EditFile(UploadDocumentRequest document)
+        {
+            if (document.file == null || document.file.Length == 0)
+            {
+                return BadRequest("No file uploaded.");
+            }
+            return Ok("Hi");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFile(UploadDocumentRequest document)
         {
             if (document.file == null || document.file.Length == 0)
             {

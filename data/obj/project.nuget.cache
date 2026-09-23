@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dr27JKBRKkg=",
+  "dgSpecHash": "jbFpc2gdmhQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\data.csproj",
+  "projectFilePath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pikac\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pikac\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",

@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Files/" />
   <Project Path="api/api.csproj" />
   <Project Path="business_layer/business_layer.csproj" />
   <Project Path="data/data.csproj" />

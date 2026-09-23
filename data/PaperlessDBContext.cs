@@ -13,7 +13,7 @@ namespace data
         }
 
         public DbSet<Document> Documents => Set<Document>();
-        public DbSet<DocumentFile> DocumentFiles => Set<DocumentFile>();
+        public DbSet<FileVersion> Files => Set<FileVersion>();
 
     }
 }   

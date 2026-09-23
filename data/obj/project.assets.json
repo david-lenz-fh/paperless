@@ -2656,11 +2656,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\data.csproj",
+      "projectUniqueName": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
       "projectName": "data",
-      "projectPath": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\data.csproj",
+      "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
       "packagesPath": "C:\\Users\\pikac\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\obj\\",
+      "outputPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2675,7 +2675,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -1,65 +1,65 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\",
+  "WorkspaceRootPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\data\\entities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\entities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\data\\data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\data\\paperlessdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\paperlessdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\data\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\data\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\business_layer\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\data\\entities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\entities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\data\\paperlessdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\paperlessdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\business_layer\\interfaces\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\interfaces\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\business_layer\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\data\\interfaces\\idocumentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\data\\interfaces\\idocumentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\interfaces\\idocumentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\business_layer\\business_layer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\business_layer\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\data\\data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|data\\data.csproj|solutionrelative:data\\data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\dtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\business_layer\\interfaces\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\interfaces\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\business_layer\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\business_layer\\business_layer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{96BF6697-65F0-1A34-739E-38589D9F6716}|business_layer\\business_layer.csproj|solutionrelative:business_layer\\business_layer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\paperless\\paperless\\api\\api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "AbsoluteMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|c:\\users\\pikac\\desktop\\swen3\\paperless\\api\\api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{CBFA08EA-AECE-205F-7B85-326FD0B81BAD}|api\\api.csproj|solutionrelative:api\\api.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     }
   ],
@@ -70,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 194,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -90,75 +90,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\appsettings.json",
-              "RelativeDocumentMoniker": "api\\appsettings.json",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\appsettings.json",
-              "RelativeToolTip": "api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-09-23T12:48:53.933Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "PaperlessDBContext.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\PaperlessDBContext.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\PaperlessDBContext.cs",
               "RelativeDocumentMoniker": "data\\PaperlessDBContext.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\PaperlessDBContext.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\PaperlessDBContext.cs",
               "RelativeToolTip": "data\\PaperlessDBContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-23T12:45:02.334Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DocumentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\DocumentRepository.cs",
-              "RelativeDocumentMoniker": "data\\DocumentRepository.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\DocumentRepository.cs",
-              "RelativeToolTip": "data\\DocumentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-23T11:11:13.994Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Entities.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\Entities.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\Entities.cs",
               "RelativeDocumentMoniker": "data\\Entities.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\Entities.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\Entities.cs",
               "RelativeToolTip": "data\\Entities.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAzwCAAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAswCsAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-22T14:37:26.408Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IDocumentService.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\Interfaces\\IDocumentService.cs",
-              "RelativeDocumentMoniker": "business_layer\\Interfaces\\IDocumentService.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\Interfaces\\IDocumentService.cs",
-              "RelativeToolTip": "business_layer\\Interfaces\\IDocumentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-22T11:40:06.138Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\Program.cs",
               "RelativeDocumentMoniker": "api\\Program.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Program.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\Program.cs",
               "RelativeToolTip": "api\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,36 +129,102 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "DocumentController.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\DocumentController.cs",
+              "RelativeDocumentMoniker": "api\\DocumentController.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\DocumentController.cs",
+              "RelativeToolTip": "api\\DocumentController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-22T11:37:45.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "dtos.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\dtos.cs",
+              "RelativeDocumentMoniker": "api\\dtos.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\dtos.cs",
+              "RelativeToolTip": "api\\dtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-22T11:28:30.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DocumentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\DocumentRepository.cs",
+              "RelativeDocumentMoniker": "data\\DocumentRepository.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\DocumentRepository.cs",
+              "RelativeToolTip": "data\\DocumentRepository.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T11:11:13.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IDocumentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\Interfaces\\IDocumentRepository.cs",
+              "RelativeDocumentMoniker": "data\\Interfaces\\IDocumentRepository.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\Interfaces\\IDocumentRepository.cs",
+              "RelativeToolTip": "data\\Interfaces\\IDocumentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-22T11:44:16.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "data.csproj",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\data.csproj",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
               "RelativeDocumentMoniker": "data\\data.csproj",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\data.csproj",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
               "RelativeToolTip": "data\\data.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2026-09-22T11:51:36.34Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DocumentService.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\DocumentService.cs",
-              "RelativeDocumentMoniker": "business_layer\\DocumentService.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\DocumentService.cs",
-              "RelativeToolTip": "business_layer\\DocumentService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Model.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\Model.cs",
+              "RelativeDocumentMoniker": "business_layer\\Model.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\Model.cs",
+              "RelativeToolTip": "business_layer\\Model.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-22T11:49:25.964Z"
+              "WhenOpened": "2026-09-23T12:00:44.536Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\appsettings.json",
+              "RelativeDocumentMoniker": "api\\appsettings.json",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\appsettings.json",
+              "RelativeToolTip": "api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-23T12:48:53.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Dockerfile",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Dockerfile",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\Dockerfile",
               "RelativeDocumentMoniker": "api\\Dockerfile",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Dockerfile",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\Dockerfile",
               "RelativeToolTip": "api\\Dockerfile",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
@@ -204,59 +232,35 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DocumentController.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\DocumentController.cs",
-              "RelativeDocumentMoniker": "api\\DocumentController.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\DocumentController.cs",
-              "RelativeToolTip": "api\\DocumentController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwCwAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "DocumentService.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\DocumentService.cs",
+              "RelativeDocumentMoniker": "business_layer\\DocumentService.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\DocumentService.cs",
+              "RelativeToolTip": "business_layer\\DocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-22T11:37:45.748Z"
+              "WhenOpened": "2026-09-22T11:49:25.964Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Dtos.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Dtos.cs",
-              "RelativeDocumentMoniker": "api\\Dtos.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\Dtos.cs",
-              "RelativeToolTip": "api\\Dtos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "IDocumentService.cs",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\Interfaces\\IDocumentService.cs",
+              "RelativeDocumentMoniker": "business_layer\\Interfaces\\IDocumentService.cs",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\Interfaces\\IDocumentService.cs",
+              "RelativeToolTip": "business_layer\\Interfaces\\IDocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-22T11:28:30.036Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Model.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\Model.cs",
-              "RelativeDocumentMoniker": "business_layer\\Model.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\Model.cs",
-              "RelativeToolTip": "business_layer\\Model.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-23T12:00:44.536Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "IDocumentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\Interfaces\\IDocumentRepository.cs",
-              "RelativeDocumentMoniker": "data\\Interfaces\\IDocumentRepository.cs",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\data\\Interfaces\\IDocumentRepository.cs",
-              "RelativeToolTip": "data\\Interfaces\\IDocumentRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-22T11:44:16.386Z"
+              "WhenOpened": "2026-09-22T11:40:06.138Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "business_layer",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\business_layer.csproj",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj",
               "RelativeDocumentMoniker": "business_layer\\business_layer.csproj",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\business_layer\\business_layer.csproj",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj",
               "RelativeToolTip": "business_layer\\business_layer.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2026-09-22T11:50:36.575Z",
@@ -266,9 +270,9 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "api",
-              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\api.csproj",
+              "DocumentMoniker": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj",
               "RelativeDocumentMoniker": "api\\api.csproj",
-              "ToolTip": "C:\\Users\\pikac\\Desktop\\paperless\\paperless\\api\\api.csproj",
+              "ToolTip": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj",
               "RelativeToolTip": "api\\api.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2026-09-22T11:42:00.69Z",

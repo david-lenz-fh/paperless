@@ -4,9 +4,53 @@ using System.Text;
 
 namespace data.Entities
 {
-    public record Document(Guid Id, Guid FileId, DocumentFile File, string Filename, string? Summary, DateTime created, DateTime lastUpdated);
+    public class Document
+    {
+        public Guid Id { get; private set; }
+        public Guid FileId { get; private set; }
+        public DocumentFile File { get; private set; }
 
-    public record DocumentFile(Guid Id, Document Document, string MimeType, int FileSizeInBytes, string FileHash, string StoragePath);
+        public string Filename { get; private set; }
+        public string Summary { get; private set; }
+        public DateTime Created { get; private set; }
+        public DateTime LastUpdated { get; private set; }
+
+        public Document(
+            Guid id,
+            Guid fileId,
+            string filename,
+            string summary,
+            DateTime created,
+            DateTime lastUpdated)
+        {
+            Id = id;
+            FileId = fileId;
+            Filename = filename;
+            Summary = summary;
+            Created = created;
+            LastUpdated = lastUpdated;
+        }
+        private Document() { }
+    }
+    public class DocumentFile
+    {
+        public Guid Id { get; private set; }
+
+        public string MimeType { get; private set; }
+        public long FileSizeInBytes { get; private set; }
+        public string FileHash { get; private set; }
+        public string StoragePath { get; private set; }
+
+        public DocumentFile(Guid id, string mimetype, long fileSizeInBytes, string fileHash, string storagePath)
+        {
+            Id = id;
+            MimeType = mimetype;
+            FileSizeInBytes = fileSizeInBytes;
+            FileHash = fileHash;
+            StoragePath = storagePath;
+        }
+        private DocumentFile() { }
+    }
     
 }
     

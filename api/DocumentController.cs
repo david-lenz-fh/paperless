@@ -17,14 +17,14 @@ namespace api
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile([FromForm] FileUploadDto fileDto)
+        public async Task<IActionResult> UploadDocument([FromForm] DocumentUploadDto fileDto)
         {
             if (string.IsNullOrWhiteSpace(fileDto.Title))
             {
                 return BadRequest("No file uploaded.");
             }
 
-            await _documentService.UploadFile(fileDto);
+            await _documentService.UploadDocument(fileDto);
             return Ok();
         }
         

@@ -5,13 +5,15 @@
         public int Id { get; private set; }
         public string Filename { get; private set; }
 
-        // konstruktur zum befüllen für die BLL
         public Document(string filename)
         {
             Filename = filename;
         }
-
-        // Von EF Core benötigt
+        public Document(int id, string filename)
+        {
+            Id = id;
+            Filename = filename;
+        }
         private Document()
         {
         }
@@ -30,7 +32,6 @@
         public DateTime UploadDate { get; private set; }
         public int Version { get; private set; }
 
-        // Konstruktor für BLL
         public FileVersion(
             int documentId,
             string mimetype,

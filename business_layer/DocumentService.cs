@@ -18,11 +18,11 @@ namespace business_layer
             _documentRepository = docRepo;
         }
 
-        public async Task<int> UploadFile(FileUploadDto uploadedFileDto)
+        public async Task<int> UploadDocument(DocumentUploadDto uploadedDocumentDto)
         {
             // create docoment entity
             var documentEntity = new Document(
-                filename: uploadedFileDto.Title
+                filename: uploadedDocumentDto.Title
             );
             // safe document in db, get document id
             int newDocumentId = await _documentRepository.CreateDocument(documentEntity);

@@ -2,7 +2,11 @@
 
 namespace business_layer.Dtos;
 
-public class FileUploadDto
+public class DocumentUploadDto
 {
     [Required] public string Title { get; set; } = string.Empty;
+    public DocumentUploadDto(string title)
+    {
+        Title = title;
+    }
 }

@@ -4,10 +4,11 @@ using System.Text;
 using business_layer.Dtos;
 using data.Interfaces;
 using data.Entities;
+using business_layer.Interfaces;
 
 namespace business_layer
 {
-    public class DocumentService
+    public class DocumentService:IDocumentService
     {
 
         private readonly IDocumentRepository _documentRepository;

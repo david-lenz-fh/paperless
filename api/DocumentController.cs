@@ -17,7 +17,7 @@ namespace api
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadDocument([FromForm] DocumentUploadDto fileDto)
+        public async Task<IActionResult> UploadDocument(DocumentUploadDto fileDto)
         {
             if (string.IsNullOrWhiteSpace(fileDto.Title))
             {

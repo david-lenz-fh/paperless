@@ -1,5 +1,6 @@
 ﻿using data.Entities;
 using data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,7 +59,10 @@ namespace data
         }
         public Task<bool> DeleteFile(FileVersion file)
         {
-            throw new NotImplementedException();
+            _context.Files.Remove(file);
+            int rowsAffected = await _context.SaveChangesAsync();
+            
+            return rowsAffected > 0;
         }
         
 
@@ -67,11 +71,6 @@ namespace data
             return await _context.Files
                 .Where(f => f.DocumentId == documentId)
                 .ToListAsync();
-        }
-
-        public Task<bool> UpdateDocument(Document doc)
-        {
-            throw new NotImplementedException();
         }
     }
 }

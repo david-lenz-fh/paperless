@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\Test_Backend\\Test_Backend.csproj": {}
+    "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\Test_Backend\\Test_Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj": {
+    "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\pikac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\obj\\",
+        "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\freil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pikac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\freil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +33,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj": {
-                "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj"
+              "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj": {
+                "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj"
               }
             }
           }
@@ -508,20 +508,20 @@
         }
       }
     },
-    "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj": {
+    "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj",
+        "projectUniqueName": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj",
         "projectName": "business_layer",
-        "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj",
-        "packagesPath": "C:\\Users\\pikac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\obj\\",
+        "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj",
+        "packagesPath": "C:\\Users\\freil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pikac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\freil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -537,8 +537,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj": {
-                "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj"
+              "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj": {
+                "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj"
               }
             }
           }
@@ -853,20 +853,20 @@
         }
       }
     },
-    "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj": {
+    "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
+        "projectUniqueName": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj",
         "projectName": "data",
-        "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
-        "packagesPath": "C:\\Users\\pikac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\obj\\",
+        "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj",
+        "packagesPath": "C:\\Users\\freil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pikac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\freil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1210,20 +1210,20 @@
         }
       }
     },
-    "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\Test_Backend\\Test_Backend.csproj": {
+    "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\Test_Backend\\Test_Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\Test_Backend\\Test_Backend.csproj",
+        "projectUniqueName": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\Test_Backend\\Test_Backend.csproj",
         "projectName": "Test_Backend",
-        "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\Test_Backend\\Test_Backend.csproj",
-        "packagesPath": "C:\\Users\\pikac\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\Test_Backend\\obj\\",
+        "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\Test_Backend\\Test_Backend.csproj",
+        "packagesPath": "C:\\Users\\freil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\Test_Backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pikac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\freil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1239,14 +1239,14 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj": {
-                "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\api\\api.csproj"
+              "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\api.csproj": {
+                "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\api\\api.csproj"
               },
-              "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj": {
-                "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj"
+              "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj": {
+                "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\business_layer\\business_layer.csproj"
               },
-              "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj": {
-                "projectPath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj"
+              "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj": {
+                "projectPath": "C:\\Users\\freil\\Dropbox\\FHTW\\paperless\\paperless\\data\\data.csproj"
               }
             }
           }

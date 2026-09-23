@@ -57,7 +57,7 @@ namespace data
         {
             return await _context.Documents.FirstOrDefaultAsync(d => d.Id == id);
         }
-        public Task<bool> DeleteFile(FileVersion file)
+        public async Task<bool> DeleteFile(FileVersion file)
         {
             _context.Files.Remove(file);
             int rowsAffected = await _context.SaveChangesAsync();

@@ -10,7 +10,7 @@ namespace data.Interfaces
         public Task<int> CreateDocument(Document doc);
         public Task<int> CreateFile(FileVersion file);
         
-        public Task<bool> UpdateDocument(Document doc);
+        //public Task<bool> UpdateDocument(Document doc);
         public Task<bool> DeleteDocument(Document doc);
         public Task<bool> DeleteFile(FileVersion file);
 

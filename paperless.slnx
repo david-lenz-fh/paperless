@@ -1,6 +1,6 @@
 <Solution>
-  <Folder Name="/Files/" />
   <Project Path="api/api.csproj" />
   <Project Path="business_layer/business_layer.csproj" />
   <Project Path="data/data.csproj" />
+  <Project Path="Test_Backend/Test_Backend.csproj" Id="d2aa3c93-13eb-4d03-8abb-98cde1a6a769" />
 </Solution>

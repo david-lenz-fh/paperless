@@ -1,5 +1,6 @@
 ﻿using data.Entities;
 using data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,34 +39,41 @@ namespace data
 ;           return rowsAffected > 0;
         }
 
-        public Task<bool> DeleteFile(FileVersion file)
+        public async Task<bool> DeleteFile(FileVersion file)
         {
-            throw new NotImplementedException();
+            _context.Files.Remove(file);
+            int rowsAffected = await _context.SaveChangesAsync();
+            
+            return rowsAffected > 0;
         }
 
-        public Task<IEnumerable<Document>> GetAllDocuments()
+        public async Task<IEnumerable<Document>> GetAllDocuments()
         {
-            throw new NotImplementedException();
+            return await _context.Documents.ToListAsync();
         }
 
-        public Task<Document> GetDocumentById(Guid id)
+        public async Task<Document?> GetDocumentById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Documents.FindAsync(id);
         }
 
-        public Task<Document> GetDocumentById(int id)
+        public async Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int document_id)
         {
-            throw new NotImplementedException();
+            var files = await _context.Files.Where(file=>file.Document.Id==document_id).ToListAsync();
+            if (files == null)
+            {
+                return Enumerable.Empty<FileVersion>();
+            }
+
+            return files;
         }
 
-        public Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int document_id)
+        public async Task<bool> UpdateDocument(Document doc)
         {
-            throw new NotImplementedException();
-        }
+            _context.Documents.Update(doc);
+            var affectedRows = await _context.SaveChangesAsync();
 
-        public Task<bool> UpdateDocument(Document doc)
-        {
-            throw new NotImplementedException();
+            return affectedRows > 0;
         }
     }
 }

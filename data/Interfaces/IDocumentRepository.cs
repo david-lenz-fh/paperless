@@ -14,7 +14,7 @@ namespace data.Interfaces
         public Task<bool> DeleteFile(FileVersion file);
 
         public Task<IEnumerable<Document>> GetAllDocuments();
-        public Task<Document> GetDocumentById(int id);
+        public Task<Document?> GetDocumentById(int id);
         public Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int document_id);
     }
 }

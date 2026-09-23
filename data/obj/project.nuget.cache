@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "t01AwhqHEQQ=",
+  "dgSpecHash": "jbFpc2gdmhQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kacpe\\Nextcloud\\FH\\5.Semester\\SWEN3\\Projekt\\paperless\\data\\data.csproj",
+  "projectFilePath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\data\\data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",

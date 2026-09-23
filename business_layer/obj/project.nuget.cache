@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MjzAEpypLCQ=",
+  "dgSpecHash": "wHKplLdIJ3s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kacpe\\Nextcloud\\FH\\5.Semester\\SWEN3\\Projekt\\paperless\\business_layer\\business_layer.csproj",
+  "projectFilePath": "C:\\Users\\pikac\\Desktop\\swen3\\paperless\\business_layer\\business_layer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.12\\microsoft.entityframeworkcore.10.0.12.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.12\\microsoft.entityframeworkcore.abstractions.10.0.12.nupkg.sha512",

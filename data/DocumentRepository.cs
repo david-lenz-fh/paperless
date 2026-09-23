@@ -3,6 +3,7 @@ using data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace data
 {
@@ -13,7 +14,8 @@ namespace data
         {
             _context = context;
         }
-
+        
+        // add document
         public async Task<int> CreateDocument(Document doc)
         {
             await _context.Documents.AddAsync(doc);
@@ -21,7 +23,8 @@ namespace data
 
             return doc.Id;
         }
-
+        
+        // add file version 
         public async Task<int> CreateFile(FileVersion file)
         {
             await _context.Files.AddAsync(file);
@@ -29,38 +32,41 @@ namespace data
 
             return file.Id;
         }
-
+        
+        // delete a document 
         public async Task<bool> DeleteDocument(Document doc)
         {
             _context.Documents.Remove(doc);
             int rowsAffected = await _context.SaveChangesAsync();
-
 ;           return rowsAffected > 0;
         }
 
+        //get all documents
+        public async Task<IEnumerable<Document>> GetAllDocuments()
+        {
+            return await _context.Documents.ToListAsync();
+        }
+        // get all fileVersions
+        public async Task<IEnumerable<FileVersion>> GetAllFiles()
+        {
+            return await _context.Files.ToListAsync();
+        }
+
+        public async Task<Document?> GetDocumentById(int id)
+        {
+            return await _context.Documents.FirstOrDefaultAsync(d => d.Id == id);
+        }
         public Task<bool> DeleteFile(FileVersion file)
         {
             throw new NotImplementedException();
         }
+        
 
-        public Task<IEnumerable<Document>> GetAllDocuments()
+        public async Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int documentId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Document> GetDocumentById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Document> GetDocumentById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int document_id)
-        {
-            throw new NotImplementedException();
+            return await _context.Files
+                .Where(f => f.DocumentId == documentId)
+                .ToListAsync();
         }
 
         public Task<bool> UpdateDocument(Document doc)

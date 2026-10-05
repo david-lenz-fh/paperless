@@ -1,0 +1,18 @@
+<div class="search-container">
+
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearch()"
+    placeholder="Dokumente durchsuchen..."
+  />
+
+  @if (searchTerm) {
+    <button
+      class="clear-button"
+      (click)="clearSearch()">
+      ×
+    </button>
+  }
+
+</div>

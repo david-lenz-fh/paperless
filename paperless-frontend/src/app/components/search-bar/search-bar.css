@@ -1,0 +1,44 @@
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 14px 45px 14px 16px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  background: white;
+
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #555;
+}
+
+.clear-button {
+  position: absolute;
+
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: none;
+
+  color: #777;
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+.clear-button:hover {
+  color: #222;
+}

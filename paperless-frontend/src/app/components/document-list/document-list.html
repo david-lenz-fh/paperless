@@ -1,0 +1,55 @@
+<div class="page">
+
+  <header class="header">
+
+    <h1>Paperless</h1>
+
+    <app-search-bar
+      (searchChange)="onSearch($event)">
+    </app-search-bar>
+
+  </header>
+
+  <main>
+
+    <div class="document-header">
+
+      <h2>Dokumente</h2>
+
+      <span>
+        {{ filteredDocuments.length }}
+        {{ filteredDocuments.length === 1 ? 'Dokument' : 'Dokumente' }}
+      </span>
+
+    </div>
+
+    <div class="document-list">
+
+      @for (document of filteredDocuments; track document.id) {
+
+        <div class="document">
+
+          <div class="document-info">
+
+            <div class="document-name">
+              {{ document.filename }}
+            </div>
+          </div>
+
+        </div>
+
+      }
+
+      @if (filteredDocuments.length === 0) {
+
+        <div class="empty">
+          Keine Dokumente gefunden.
+        </div>
+
+      }
+
+    </div>
+
+  </main>
+
+</div>

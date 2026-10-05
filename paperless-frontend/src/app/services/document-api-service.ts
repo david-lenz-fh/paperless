@@ -8,7 +8,7 @@ import { DocumentDto, DocumentUploadDto, FileDto } from '../model/document-model
   providedIn: 'root'
 })
 export class DocumentApiService {
-  private apiUrl = 'http://localhost:8080/api/Document'; 
+  private apiUrl = '/api/Document'; 
 
   constructor(private http: HttpClient) { }
 

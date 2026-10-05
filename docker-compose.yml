@@ -25,12 +25,26 @@ services:
     restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
       - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=paperless;Username=postgres;Password=deinpasswort
     ports:
       - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
+
+  frontend:
+    build:
+      context: ./paperless-frontend
+      dockerfile: Dockerfile
+    container_name: angular_frontend
+    restart: on-failure
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    
+
 
 volumes:
   pgdata:

@@ -12,8 +12,8 @@ using data;
 namespace data.Migrations
 {
     [DbContext(typeof(PaperlessDbContext))]
-    [Migration("20260923194700_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20261006160815_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,35 @@ namespace data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Filename")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("data.Entities.DocumentCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DocumentCategories");
                 });
 
             modelBuilder.Entity("data.Entities.FileVersion", b =>
@@ -82,7 +104,16 @@ namespace data.Migrations
 
                     b.HasIndex("DocumentId");
 
-                    b.ToTable("Files");
+                    b.ToTable("FileVersions");
+                });
+
+            modelBuilder.Entity("data.Entities.Document", b =>
+                {
+                    b.HasOne("data.Entities.DocumentCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("data.Entities.FileVersion", b =>

@@ -3,52 +3,72 @@
     public class Document
     {
         public int Id { get; private set; }
-        public string Filename { get; private set; }
+        public string Filename { get; private set; } = string.Empty;
 
-        public Document(string filename)
+        public int? CategoryId { get; private set; }
+        public DocumentCategory? Category { get; private set; }
+
+        public Document(string filename, int? categoryId)
         {
             Filename = filename;
+            CategoryId = categoryId;
         }
-        public Document(int id, string filename)
+
+        private Document() { }
+    }
+    public class DocumentCategory
+    {
+        public int Id { get; private set; }
+
+        public string CategoryName { get; private set; } = string.Empty;
+
+        public DocumentCategory(string categoryName)
         {
-            Id = id;
-            Filename = filename;
+            CategoryName = categoryName;
         }
-        private Document()
+
+        private DocumentCategory()
         {
         }
     }
-
     public class FileVersion
     {
         public int Id { get; private set; }
+
         public int DocumentId { get; private set; }
+
         public Document Document { get; private set; } = null!;
-        public string AiSummary { get; private set; }
-        public string MimeType { get; private set; }
+
+        public string AiSummary { get; private set; } = string.Empty;
+
+        public string MimeType { get; private set; } = string.Empty;
+
         public long FileSizeInBytes { get; private set; }
-        public string FileHash { get; private set; }
-        public string StoragePath { get; private set; }
+
+        public string FileHash { get; private set; } = string.Empty;
+
+        public string StoragePath { get; private set; } = string.Empty;
+
         public DateTime UploadDate { get; private set; }
+
         public int Version { get; private set; }
 
         public FileVersion(
             int documentId,
-            string mimetype,
+            string mimeType,
             long fileSizeInBytes,
             string fileHash,
             string storagePath,
             string aiSummary,
-            DateTime uploadDate,
             int version)
         {
             DocumentId = documentId;
-            MimeType = mimetype;
+            MimeType = mimeType;
             FileSizeInBytes = fileSizeInBytes;
             FileHash = fileHash;
             StoragePath = storagePath;
             AiSummary = aiSummary;
-            UploadDate = uploadDate;
+            UploadDate = DateTime.UtcNow;
             Version = version;
         }
 

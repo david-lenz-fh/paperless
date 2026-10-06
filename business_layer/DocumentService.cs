@@ -137,12 +137,11 @@ namespace business_layer
             // create file version with temporary values
             var fileVersionEntity = new FileVersion(
                 documentId: documentId,
-                mimetype: dummyMimeType,
+                mimeType: dummyMimeType,
                 fileSizeInBytes: dummyFileSize,
                 fileHash: dummyHash,
                 storagePath: dummyStoragePath,
                 aiSummary: dummySummary,
-                uploadDate: DateTime.UtcNow,
                 version: nextVersion
             );
             return await _documentRepository.CreateFile(fileVersionEntity);

@@ -2,10 +2,10 @@
 {
     public class Document
     {
-        public int Id { get; private set; }
-        public string Filename { get; private set; } = string.Empty;
+        public int Id { get; set; }
+        public string Filename { get; set; } = string.Empty;
 
-        public int? CategoryId { get; private set; }
+        public int? CategoryId { get; set; }
         public DocumentCategory? Category { get; private set; }
 
         public Document(string filename, int? categoryId)

@@ -25,6 +25,14 @@ namespace data
             return doc.Id;
         }
         
+        // update a document 
+        public async Task<bool> UpdateDocument(Document doc)
+        {
+            _context.Documents.Update(doc);
+            int rowsAffected = await _context.SaveChangesAsync();
+            return rowsAffected > 0;
+        }
+        
         // add file version 
         public async Task<int> CreateFile(FileVersion file)
         {
@@ -72,5 +80,7 @@ namespace data
                 .Where(f => f.DocumentId == documentId)
                 .ToListAsync();
         }
+        
+
     }
 }

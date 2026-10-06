@@ -3,7 +3,7 @@
     public class Document
     {
         public int Id { get; private set; }
-        public string Filename { get; private set; }
+        public string Filename { get; set; }
 
         public Document(string filename)
         {

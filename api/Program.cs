@@ -39,4 +39,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//automatically update migrations
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<PaperlessDbContext>();
+    dbContext.Database.Migrate();
+}
+
 app.Run();

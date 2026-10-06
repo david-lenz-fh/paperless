@@ -75,20 +75,29 @@ namespace api
             return Ok(files);
         }
         
-        /**
-
-        [HttpPut]
-        public async Task<IActionResult> EditFile(UploadDocumentRequest document)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDocument(int id, [FromBody] DocumentUpdateDto documentToUpdate)
         {
-            if (document.file == null || document.file.Length == 0)
+            if (documentToUpdate == null || string.IsNullOrWhiteSpace(documentToUpdate.Title))
             {
-                return BadRequest("No file uploaded.");
+                return BadRequest("Ungültige Daten oder Titel ist leer.");
             }
-            return Ok("Hi");
+
+            // id is correct id from url
+            documentToUpdate.Id = id;
+
+            try
+            {
+                int fileVersionId = await _documentService.UpdateDocument(documentToUpdate);
+                return Ok(new { FileVersionId = fileVersionId, Message = "Dokument erfolgreich aktualisiert." });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-
         
-
+        /**
         [HttpGet("{id}/download")]
         public async Task<IActionResult> DownloadFile(Guid id)
         {

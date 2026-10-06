@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
 
 namespace data
 {
@@ -25,21 +24,29 @@ namespace data
             return doc.Id;
         }
         
+        // update a document 
+        public async Task<bool> UpdateDocument(Document doc)
+        {
+            _context.Documents.Update(doc);
+            int rowsAffected = await _context.SaveChangesAsync();
+            return rowsAffected > 0;
+        }
+        
         // add file version 
         public async Task<int> CreateFile(FileVersion file)
         {
-            await _context.Files.AddAsync(file);
+            await _context.FileVersions.AddAsync(file);
             await _context.SaveChangesAsync();
 
             return file.Id;
         }
         
-        // delete a document 
+        // delete a documents and files of that document
         public async Task<bool> DeleteDocument(Document doc)
         {
             _context.Documents.Remove(doc);
             int rowsAffected = await _context.SaveChangesAsync();
-;           return rowsAffected > 0;
+            return rowsAffected > 0;
         }
 
         //get all documents
@@ -47,10 +54,9 @@ namespace data
         {
             return await _context.Documents.ToListAsync();
         }
-        // get all fileVersions
         public async Task<IEnumerable<FileVersion>> GetAllFiles()
         {
-            return await _context.Files.ToListAsync();
+            return await _context.FileVersions.ToListAsync();
         }
 
         public async Task<Document?> GetDocumentById(int id)
@@ -59,7 +65,7 @@ namespace data
         }
         public async Task<bool> DeleteFile(FileVersion file)
         {
-            _context.Files.Remove(file);
+            _context.FileVersions.Remove(file);
             int rowsAffected = await _context.SaveChangesAsync();
             
             return rowsAffected > 0;
@@ -68,9 +74,11 @@ namespace data
 
         public async Task<IEnumerable<FileVersion>> GetFilesByDocumentId(int documentId)
         {
-            return await _context.Files
+            return await _context.FileVersions
                 .Where(f => f.DocumentId == documentId)
                 .ToListAsync();
         }
+        
+
     }
 }

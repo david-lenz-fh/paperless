@@ -16,6 +16,8 @@ namespace business_layer.Interfaces
         public Task<bool> DeleteDocument(int id);
 
         public Task<IEnumerable<FileVersionDto>> GetFilesByDocumentId(int documentId);
+
+        public Task<int> UpdateDocument(DocumentUpdateDto documentToUpdate);
         //public RawFile DownloadFile(Guid id);
     }
 }

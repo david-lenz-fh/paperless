@@ -1,3 +1,4 @@
+HTML
 <div class="app-container">
   <header class="app-header">
     <h1>Paperless DMS</h1>
@@ -6,15 +7,16 @@
     </button>
   </header>
 
-  <!-- Upload-Formular -->
   @if (showUploadForm()) {
     <section class="upload-wrapper">
-      <app-document-upload (uploadSuccess)="onUploadFinished()"></app-document-upload>
+      <app-document-upload 
+        [documentToEdit]="selectedDocument()" 
+        (uploadSuccess)="onUploadFinished()">
+      </app-document-upload>
     </section>
   }
 
-  <!-- Dokumenten-Liste -->
   <main class="list-wrapper">
-    <app-document-list></app-document-list>
+    <app-document-list (editDocument)="onEditDocument($event)"></app-document-list>
   </main>
 </div>

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, Inject } from '@angular/core';
+import { Component, EventEmitter, Output, Input, inject, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DocumentApiService } from '../../services/document-api-service';
+import { DocumentDto, DocumentUpdateDto } from '../../model/document-model';
 
 @Component({
   selector: 'app-document-upload',
@@ -12,8 +13,9 @@ import { DocumentApiService } from '../../services/document-api-service';
   styleUrls: ['./document-upload.css']
 })
 export class DocumentUploadComponent {
-  private readonly documentService = Inject(DocumentApiService);
+  private readonly documentService = inject(DocumentApiService);
 
+  @Input() documentToEdit: DocumentDto | null = null;
   @Output() uploadSuccess = new EventEmitter<void>();
 
   uploadForm: FormGroup;
@@ -41,6 +43,20 @@ export class DocumentUploadComponent {
   // Getter Validierungsabfragen
   get title() {
     return this.uploadForm.get('title');
+  }
+
+  // document update
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['documentToEdit'] && this.documentToEdit) {
+      // fill title into form
+      this.uploadForm.patchValue({
+        title: this.documentToEdit.filename
+      });
+    } else if (!this.documentToEdit) {
+      // normal upload, reset form
+      this.uploadForm.reset();
+      this.selectedFile = null;
+    }
   }
 
   onFileSelected(event: Event): void {
@@ -81,6 +97,10 @@ export class DocumentUploadComponent {
   }
 
   onSubmit(): void {
+
+    console.log('3. Formular submit aufgerufen!');
+    console.log('Formular Valid?:', this.uploadForm.valid);
+    console.log('documentToEdit ist:', this.documentToEdit);
     this.successMessage = null;
     this.errorMessage = null;
 
@@ -89,37 +109,60 @@ export class DocumentUploadComponent {
       return;
     }
 
-    if (!this.selectedFile) {
-      this.fileError = 'Bitte wähle eine Datei aus.';
-      return;
-    }
-
     this.isSubmitting = true;
 
-    // Daten als FormData für multipart/form-data
-    const formData = new FormData();
-    formData.append('title', this.title?.value);
-    formData.append('file', this.selectedFile);
-
     // Aufruf geht über Nginx-Proxy an api
-    this.http.post('/api/Document', formData, { responseType: 'text' }).subscribe({
-      next: (response) => {
-        console.log('Upload response successful:', response);
-        this.successMessage = 'Dokument erfolgreich hochgeladen!';
-        this.uploadForm.reset();
-        this.selectedFile = null;
-        this.fileError = null;
-        this.isSubmitting = false;
-        if (typeof (this.documentService as any)?.notifyDocumentUploaded === 'function') {
-          (this.documentService as any).notifyDocumentUploaded();
+    //update
+    if (this.documentToEdit) {
+      const updateDto: DocumentUpdateDto = {
+        id: this.documentToEdit.id,
+        title: this.title?.value
+      };
+
+      this.documentService.updateDocument(updateDto).subscribe({
+        next: () => {
+          console.log('Update successful');
+          this.successMessage = 'Dokument erfolgreich aktualisiert!';
+          this.finishSubmit();
+        },
+        error: (err: any) => {
+          this.errorMessage = 'Fehler beim Aktualisieren. Bitte versuche es erneut.';
+          console.error('Update Error:', err);
+          this.isSubmitting = false;
         }
-        this.uploadSuccess.emit();
-      },
-      error: (err) => {
-        this.errorMessage = 'Fehler beim Hochladen. Bitte versuche es erneut.';
-        console.error('Upload Error:', err);
+      });
+    // new post (upload)
+    } else {
+      if (!this.selectedFile) {
+        this.fileError = 'Bitte wähle eine Datei aus.';
         this.isSubmitting = false;
+        return;
       }
-    });
+
+      const formData = new FormData();
+      formData.append('title', this.title?.value);
+      formData.append('file', this.selectedFile);
+
+      this.http.post('/api/Document', formData, { responseType: 'text' }).subscribe({
+        next: (response) => {
+          console.log('Upload response successful:', response);
+          this.successMessage = 'Dokument erfolgreich hochgeladen!';
+          this.documentService.notifyDocumentUploaded();
+          this.finishSubmit();
+        },
+        error: (err) => {
+          this.errorMessage = 'Fehler beim Hochladen. Bitte versuche es erneut.';
+          console.error('Upload Error:', err);
+          this.isSubmitting = false;
+        }
+      });
+    }
+  }
+  private finishSubmit(): void {
+    this.uploadForm.reset();
+    this.selectedFile = null;
+    this.fileError = null;
+    this.isSubmitting = false;
+    this.uploadSuccess.emit();
   }
 }

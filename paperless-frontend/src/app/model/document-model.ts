@@ -14,3 +14,8 @@ export interface FileDto {
   name?: string;
   path?: string;
 }
+
+export interface DocumentUpdateDto {
+  id: number;
+  title: string;
+}

@@ -116,5 +116,48 @@ namespace business_layer
                 Version = f.Version
             });
         }
+
+        public async Task<int> UpdateDocument(DocumentUpdateDto documentToUpdate)
+        {
+            // get id from document
+            int documentId = documentToUpdate.Id;
+            
+            // check if document exists
+            var existingDocument = await _documentRepository.GetDocumentById(documentId);
+            if (existingDocument == null)
+            {
+                throw new KeyNotFoundException($"Dokument mit ID {documentId} existiert nicht.");
+            }
+
+            // change title
+            if (!string.IsNullOrWhiteSpace(documentToUpdate.Title) && existingDocument.Filename != documentToUpdate.Title)
+            {
+                existingDocument.Filename = documentToUpdate.Title;
+                await _documentRepository.UpdateDocument(existingDocument);
+            }
+            
+            //get all previous version end determine version number
+            var existingFiles = (await _documentRepository.GetFilesByDocumentId(documentId)).ToList();
+            int nextVersion = existingFiles.Any() ? existingFiles.Max(f => f.Version) + 1 : 1;
+            
+            // 3fill with temporary values
+            var dummyMimeType = "application/pdf";
+            var dummyFileSize = 1024567L; // 1MB
+            var dummyHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+            var dummyStoragePath = $"/var/paperless/storage/dummy_{documentId}.pdf";
+            var dummySummary = "KI-Zusammenfassung wird noch generiert...";
+            // create file version with temporary values
+            var fileVersionEntity = new FileVersion(
+                documentId: documentId,
+                mimetype: dummyMimeType,
+                fileSizeInBytes: dummyFileSize,
+                fileHash: dummyHash,
+                storagePath: dummyStoragePath,
+                aiSummary: dummySummary,
+                uploadDate: DateTime.UtcNow,
+                version: nextVersion
+            );
+            return await _documentRepository.CreateFile(fileVersionEntity);
+        }
     }
 }

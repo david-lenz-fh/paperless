@@ -1,0 +1,63 @@
+<div class="upload-container">
+  <h2>Dokument hochladen</h2>
+
+  <!-- Erfolgsmeldung -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Fehlermeldung -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- 1. Titel Input mit Validierung -->
+    <div class="form-group">
+      <label for="title">Dokumenten-Titel *</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="z. B. Stromrechnung 2026"
+        [class.invalid]="title?.invalid && title?.touched"
+      />
+
+      <!-- Validierungsfehler für Titel -->
+      <div *ngIf="title?.invalid && title?.touched" class="error-msg">
+        <small *ngIf="title?.errors?.['required']">Der Titel ist erforderlich.</small>
+        <small *ngIf="title?.errors?.['minlength']">Der Titel muss mindestens 3 Zeichen lang sein.</small>
+        <small *ngIf="title?.errors?.['maxlength']">Der Titel darf maximal 100 Zeichen lang sein.</small>
+      </div>
+    </div>
+
+    <!-- 2. Datei-Auswahl mit Validierung -->
+    <div class="form-group">
+      <label for="file">Datei auswählen (PDF, PNG, JPG) *</label>
+      <input
+        type="file"
+        id="file"
+        accept=".pdf,.png,.jpg,.jpeg"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- Validierungsfehler für Datei -->
+      <div *ngIf="fileError" class="error-msg">
+        <small>{{ fileError }}</small>
+      </div>
+
+      <div *ngIf="selectedFile" class="file-info">
+        Ausgewählt: <strong>{{ selectedFile.name }}</strong> ({{ (selectedFile.size / 1024).toFixed(1) }} KB)
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn-submit"
+      [disabled]="uploadForm.invalid || !selectedFile || isSubmitting"
+    >
+      {{ isSubmitting ? 'Wird hochgeladen...' : 'Hochladen' }}
+    </button>
+  </form>
+</div>

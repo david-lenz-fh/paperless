@@ -1,7 +1,7 @@
 // document.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DocumentDto, DocumentUploadDto, FileDto } from '../model/document-model';
 
 @Injectable({
@@ -11,6 +11,16 @@ export class DocumentApiService {
   private apiUrl = '/api/Document'; 
 
   constructor(private http: HttpClient) { }
+
+  private readonly refreshNeeded$ = new Subject<void>();
+
+  get refresh$(): Observable<void> {
+    return this.refreshNeeded$.asObservable();
+  }
+
+  notifyDocumentUploaded(): void {
+    this.refreshNeeded$.next();
+  }
 
   getAllDocuments(): Observable<DocumentDto[]> {
     return this.http.get<DocumentDto[]>(this.apiUrl);

@@ -19,12 +19,20 @@ namespace api
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadDocument(DocumentUploadDto fileDto)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadDocument([FromForm] string title, IFormFile file)
         {
-            if (string.IsNullOrWhiteSpace(fileDto.Title))
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                return BadRequest("Titel darf nicht leer sein.");
+            }
+
+            if (file == null || file.Length == 0)
             {
                 return BadRequest("No file uploaded.");
             }
+
+            var fileDto = new DocumentUploadDto(title);
 
             await _documentService.UploadDocument(fileDto);
             return Ok();

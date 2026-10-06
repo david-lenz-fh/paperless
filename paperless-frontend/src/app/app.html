@@ -1,1 +1,20 @@
-<app-document-list></app-document-list>
+<div class="app-container">
+  <header class="app-header">
+    <h1>Paperless DMS</h1>
+    <button class="btn-primary" (click)="toggleUploadForm()">
+      {{ showUploadForm() ? '✕ Schließen' : '+ Neues Dokument hochladen' }}
+    </button>
+  </header>
+
+  <!-- Upload-Formular -->
+  @if (showUploadForm()) {
+    <section class="upload-wrapper">
+      <app-document-upload (uploadSuccess)="onUploadFinished()"></app-document-upload>
+    </section>
+  }
+
+  <!-- Dokumenten-Liste -->
+  <main class="list-wrapper">
+    <app-document-list></app-document-list>
+  </main>
+</div>

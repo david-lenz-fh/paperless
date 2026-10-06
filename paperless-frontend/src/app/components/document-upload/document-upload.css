@@ -1,0 +1,101 @@
+.upload-container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #0066cc;
+  outline: none;
+}
+
+input[type="text"].invalid {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
+
+input[type="file"] {
+  display: block;
+  margin-top: 6px;
+}
+
+.error-msg {
+  color: #dc3545;
+  margin-top: 4px;
+}
+
+.file-info {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #28a745;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #0066cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #004c99;
+}
+
+.btn-submit:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}

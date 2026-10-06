@@ -7,26 +7,45 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "DocumentCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CategoryName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DocumentCategories", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Filename = table.Column<string>(type: "text", nullable: false)
+                    Filename = table.Column<string>(type: "text", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Documents_DocumentCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "DocumentCategories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Files",
+                name: "FileVersions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -42,9 +61,9 @@ namespace data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Files", x => x.Id);
+                    table.PrimaryKey("PK_FileVersions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Files_Documents_DocumentId",
+                        name: "FK_FileVersions_Documents_DocumentId",
                         column: x => x.DocumentId,
                         principalTable: "Documents",
                         principalColumn: "Id",
@@ -52,8 +71,13 @@ namespace data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Files_DocumentId",
-                table: "Files",
+                name: "IX_Documents_CategoryId",
+                table: "Documents",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileVersions_DocumentId",
+                table: "FileVersions",
                 column: "DocumentId");
         }
 
@@ -61,10 +85,13 @@ namespace data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Files");
+                name: "FileVersions");
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "DocumentCategories");
         }
     }
 }

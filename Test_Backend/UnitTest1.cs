@@ -34,8 +34,8 @@ namespace Test_Backend
         {
             var documents = new List<Document>
             {
-                new Document("test.pdf"),
-                new Document("woow.pdf")
+                new Document("test.pdf",null),
+                new Document("woow.pdf",null)
             };
             var repository = new Mock<IDocumentRepository>();
             var service = new DocumentService(repository.Object);
@@ -58,7 +58,7 @@ namespace Test_Backend
         {
             var id = 1;
 
-            var document = new Document("Test1.pdf");
+            var document = new Document("Test1.pdf", null);
 
             var repository = new Mock<IDocumentRepository>();
 
@@ -81,7 +81,7 @@ namespace Test_Backend
         {
             var id = 1;
 
-            var document = new Document("Test1.pdf");
+            var document = new Document("Test1.pdf", null);
 
             var repository = new Mock<IDocumentRepository>();
 
@@ -102,7 +102,8 @@ namespace Test_Backend
         [Fact]
         public async Task DeleteDocument_CallsRepository()
         {
-            var document = new Document(2, "Test.pdf");
+            var document = new Document("Test.pdf", null);
+            document.Id = 2;
 
             var repository = new Mock<IDocumentRepository>();
 

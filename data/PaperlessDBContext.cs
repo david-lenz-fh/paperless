@@ -13,7 +13,16 @@ namespace data
         }
 
         public DbSet<Document> Documents => Set<Document>();
-        public DbSet<FileVersion> Files => Set<FileVersion>();
+        public DbSet<FileVersion> FileVersions => Set<FileVersion>();
+        public DbSet<DocumentCategory> DocumentCategories => Set<DocumentCategory>();
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FileVersion>()
+                .HasOne(f => f.Document)
+                .WithMany()
+                .HasForeignKey(f => f.DocumentId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }   

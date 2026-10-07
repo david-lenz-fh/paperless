@@ -52,6 +52,24 @@ export class DocumentList implements OnInit {
     });
   }
 
+  deleteDocument(id: number, filename: string): void {
+    const confirmed = window.confirm(`Möchtest du "${filename}" wirklich löschen?`);
+    if (!confirmed) {
+      return;
+    }
+
+    this.documentService.deleteDocument(id).subscribe({
+      next: () => {
+        //Dokument aus Signal entfernen
+        this.documents.update(docs => docs.filter(doc => (doc.id ?? (doc as any).Id) !== id));
+      },
+      error: error => {
+        console.error('Fehler beim Löschen des Dokuments:', error);
+        alert('Das Dokument konnte nicht gelöscht werden.');
+      }
+    });
+  }
+
   onSearch(searchTerm: string): void {
     this.searchTerm.set(searchTerm);
   }

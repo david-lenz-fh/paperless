@@ -21,6 +21,15 @@
               {{ document.filename ?? $any(document).Filename }}
             </div>
           </div>
+
+          <!-- Löschen-Button -->
+          <button 
+            type="button" 
+            class="btn-delete" 
+            title="Dokument löschen"
+            (click)="deleteDocument(document.id ?? $any(document).Id, document.filename ?? $any(document).Filename)">
+            🗑
+          </button>
         </div>
       }
 

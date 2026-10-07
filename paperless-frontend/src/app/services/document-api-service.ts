@@ -2,11 +2,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { DocumentDto, DocumentUploadDto, FileDto } from '../model/document-model';
+import { tap } from 'rxjs/operators';
+import { DocumentDto, DocumentUploadDto, FileDto, DocumentUpdateDto } from '../model/document-model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DocumentApiService {
   private apiUrl = '/api/Document'; 
 
@@ -37,5 +39,12 @@ export class DocumentApiService {
   }
   getFilesByDocumentId(documentId: number): Observable<FileDto[]> {
     return this.http.get<FileDto[]>(`${this.apiUrl}/${documentId}/files`);
+  }
+  updateDocument(fileDto: DocumentUpdateDto): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${fileDto.id}`, fileDto).pipe(
+      tap(() => {
+        this.notifyDocumentUploaded();
+      })
+    );
   }
 }

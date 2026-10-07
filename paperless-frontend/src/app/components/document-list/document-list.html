@@ -20,6 +20,12 @@
             <div class="document-name">
               {{ document.filename ?? $any(document).Filename }}
             </div>
+            <!-- update button for every document-->
+            <div class="actions">
+              <button (click)="onEditDocument(document)" class="btn btn-secondary">
+                Edit
+              </button>
+            </div>
           </div>
         </div>
       }

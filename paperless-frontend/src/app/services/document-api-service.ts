@@ -35,7 +35,12 @@ export class DocumentApiService {
     return this.http.post<void>(this.apiUrl, fileDto);
   }
   deleteDocument(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    console.log(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(()=>{
+        this.notifyDocumentUploaded();
+      })
+    );
   }
   getFilesByDocumentId(documentId: number): Observable<FileDto[]> {
     return this.http.get<FileDto[]>(`${this.apiUrl}/${documentId}/files`);

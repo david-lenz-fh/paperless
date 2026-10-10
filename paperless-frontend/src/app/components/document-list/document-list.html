@@ -12,29 +12,40 @@
         {{ filteredDocuments().length === 1 ? 'Dokument' : 'Dokumente' }}
       </span>
     </div>
-
-    <div class="document-list">
-      @for (document of filteredDocuments(); track document.id ?? $index) {
-        <div class="document">
-          <div class="document-info">
-            <div class="document-name">
-              {{ document.filename ?? $any(document).Filename }}
-            </div>
-            <!-- update button for every document-->
-            <div class="actions">
-              <button (click)="onEditDocument(document)" class="btn btn-secondary">
-                Edit
-              </button>
+    <div class="document-view">
+      <div class="document-list">
+        @for (document of filteredDocuments(); track document.id ?? $index) {
+          <div class="document">
+            <div class="document-info">
+              <div class="document-name">
+                {{ document.filename }}
+              </div>
+              <div class="actions">
+                <button (click)="null" class="btn btn-secondary">
+                  View
+                </button>
+                <button (click)="onEditDocument(document)" class="btn btn-secondary">
+                  Edit
+                </button>
+                <button (click)="deleteDocument(document)" class="btn btn-secondary">
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      }
+        }
 
-      @if (filteredDocuments().length === 0) {
-        <div class="empty">
-          Keine Dokumente gefunden.
-        </div>
-      }
+        @if (filteredDocuments().length === 0) {
+          <div class="empty">
+            Keine Dokumente gefunden.
+          </div>
+        }@else {
+          
+        }
+      </div>
+      <div class="document-preview">
+        <img src="/img/placeholder.jpg">
+      </div>
     </div>
   </main>
 </div>

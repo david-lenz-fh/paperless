@@ -30,8 +30,7 @@ if (app.Environment.IsDevelopment())
 {
 }
 
-//app.UseHttpsRedirection();
-
+app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI(); 
 app.UseCors("AllowAll");

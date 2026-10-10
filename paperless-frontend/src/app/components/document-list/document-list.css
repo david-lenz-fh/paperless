@@ -86,12 +86,14 @@ h1 {
 .document-info {
   flex: 1;
   display: flex;
+  gap: 2em;
   justify-content: space-between;
 }
 
 .document-name {
   font-size: 15px;
   font-weight: 500;
+  flex-grow: 1;
 }
 
 .document-meta {
@@ -113,4 +115,9 @@ h1 {
 }
 app-document-preview{
   max-width: 40%;
+}
+.category {
+  border: solid 2px blueviolet;
+  padding: 4px 15px;
+  border-radius: 2em;
 }

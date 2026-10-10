@@ -2,11 +2,12 @@ import { Component, OnInit, inject, signal, computed, output } from '@angular/co
 import { SearchBar } from '../search-bar/search-bar';
 import { DocumentApiService } from '../../services/document-api-service';
 import { DocumentDto, FileDto } from '../../model/document-model';
+import { DocumentPreview } from '../document-preview/document-preview';
 
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [SearchBar],
+  imports: [SearchBar, DocumentPreview],
   templateUrl: './document-list.html',
   styleUrl: './document-list.css'
 })
@@ -55,7 +56,7 @@ export class DocumentList implements OnInit {
     });
   }
   viewFile(doc: DocumentDto){
-    
+
   }
   onSearch(searchTerm: string): void {
     this.searchTerm.set(searchTerm);

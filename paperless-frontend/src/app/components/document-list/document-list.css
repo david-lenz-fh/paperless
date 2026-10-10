@@ -111,10 +111,6 @@ h1 {
   width: 100%;
   gap: 1em;
 }
-.document-preview{
+app-document-preview{
   max-width: 40%;
-}
-.document-preview img{
-  width: 100%;
-  aspect-ratio: 1 / 1.414;
 }

@@ -42,6 +42,7 @@ namespace api
         public async Task<ActionResult<List<DocumentDto>>> GetAllDocuments()
         {
             var documents = await _documentService.GetAllDocuments();
+            RabbitService.SendToQueue("Test Get ALL");
             return Ok(documents);
         }
         

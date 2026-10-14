@@ -1,17 +1,21 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, output } from '@angular/core';
 import { SearchBar } from '../search-bar/search-bar';
 import { DocumentApiService } from '../../services/document-api-service';
-import { DocumentDto } from '../../model/document-model';
+import { DocumentDto, FileDto } from '../../model/document-model';
+import { DocumentPreview } from '../document-preview/document-preview';
 
 @Component({
   selector: 'app-document-list',
   standalone: true,
-  imports: [SearchBar],
+  imports: [SearchBar, DocumentPreview],
   templateUrl: './document-list.html',
   styleUrl: './document-list.css'
 })
 export class DocumentList implements OnInit {
   private readonly documentService = inject(DocumentApiService);
+
+  editDocument = output<DocumentDto>();
+  previewFile = output<FileDto>();
 
   searchTerm = signal('');
   documents = signal<DocumentDto[]>([]);
@@ -51,8 +55,26 @@ export class DocumentList implements OnInit {
       }
     });
   }
+  viewFile(doc: DocumentDto){
 
+  }
   onSearch(searchTerm: string): void {
     this.searchTerm.set(searchTerm);
+  }
+
+  onEditDocument(doc: DocumentDto): void {
+    this.editDocument.emit(doc); 
+  }
+  deleteDocument(doc: DocumentDto): void {
+    if (confirm("Sicher das sie das Dokument " + doc.filename + " löschen wollen")){
+      this.documentService.deleteDocument(doc.id).subscribe({
+      next: () => {
+        console.log('Dokument erfolgreich gelöscht');
+      },
+      error: (err) => {
+        console.error('Fehler beim Löschen:', err);
+      }
+    });
+    }
   }
 }

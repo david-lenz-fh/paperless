@@ -19,9 +19,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()   // Erlaubt Anfragen von jedem Frontend (z.B. localhost:4200)
-              .AllowAnyMethod()   // Erlaubt GET, POST, PUT, DELETE etc.
-              .AllowAnyHeader();  // Erlaubt alle Header
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 var app = builder.Build();
@@ -38,7 +38,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//automatically update migrations
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<PaperlessDbContext>();

@@ -41,7 +41,7 @@ namespace data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("data.Entities.DocumentCategory", b =>
@@ -58,7 +58,7 @@ namespace data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentCategories");
+                    b.ToTable("DocumentCategories", (string)null);
                 });
 
             modelBuilder.Entity("data.Entities.FileVersion", b =>
@@ -101,7 +101,7 @@ namespace data.Migrations
 
                     b.HasIndex("DocumentId");
 
-                    b.ToTable("FileVersions");
+                    b.ToTable("FileVersions", (string)null);
                 });
 
             modelBuilder.Entity("data.Entities.Document", b =>

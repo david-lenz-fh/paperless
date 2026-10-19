@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, inject, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output, Input, inject, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -12,8 +12,10 @@ import { DocumentDto, DocumentUpdateDto } from '../../model/document-model';
   templateUrl: './document-upload.html',
   styleUrls: ['./document-upload.css']
 })
-export class DocumentUploadComponent {
+export class DocumentUploadComponent implements OnChanges {
   private readonly documentService = inject(DocumentApiService);
+  private readonly fb = inject(FormBuilder);
+  private readonly http = inject(HttpClient);
 
   @Input() documentToEdit: DocumentDto | null = null;
   @Output() uploadSuccess = new EventEmitter<void>();
@@ -30,7 +32,7 @@ export class DocumentUploadComponent {
   readonly allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'application/msword', 'text/plain'];
   readonly maxFileSizeInMB = 20;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor() {
     this.uploadForm = this.fb.group({
       title: ['', [
         Validators.required,
@@ -125,7 +127,7 @@ export class DocumentUploadComponent {
           this.successMessage = 'Dokument erfolgreich aktualisiert!';
           this.finishSubmit();
         },
-        error: (err: any) => {
+        error: (err: unknown) => {
           this.errorMessage = 'Fehler beim Aktualisieren. Bitte versuche es erneut.';
           console.error('Update Error:', err);
           this.isSubmitting = false;

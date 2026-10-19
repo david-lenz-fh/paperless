@@ -17,6 +17,24 @@ services:
       timeout: 5s
       retries: 5
 
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
   api:
     build:
       context: .
@@ -31,6 +49,18 @@ services:
       - "8080:8080"
     depends_on:
       db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  paperless-worker:
+    build:
+      context: ./paperless-worker
+      dockerfile: Dockerfile
+    container_name: ocr_worker
+    restart: on-failure
+    depends_on:
+      rabbitmq:
         condition: service_healthy
 
   frontend:

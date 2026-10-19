@@ -6,15 +6,16 @@
     </button>
   </header>
 
-  <!-- Upload-Formular -->
   @if (showUploadForm()) {
     <section class="upload-wrapper">
-      <app-document-upload (uploadSuccess)="onUploadFinished()"></app-document-upload>
+      <app-document-upload 
+        [documentToEdit]="selectedDocument()" 
+        (uploadSuccess)="onUploadFinished()">
+      </app-document-upload>
     </section>
   }
 
-  <!-- Dokumenten-Liste -->
   <main class="list-wrapper">
-    <app-document-list></app-document-list>
+    <app-document-list (editDocument)="onEditDocument($event)"></app-document-list>
   </main>
 </div>

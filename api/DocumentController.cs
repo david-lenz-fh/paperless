@@ -34,7 +34,9 @@ namespace api
 
             var fileDto = new DocumentUploadDto(title);
 
-            await _documentService.UploadDocument(fileDto);
+            var newId = await _documentService.UploadDocument(fileDto);
+            
+            await RabbitService.SendToQueue(newId.ToString());
             return Ok();
         }
         

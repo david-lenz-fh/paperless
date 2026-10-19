@@ -34,7 +34,9 @@ namespace api
 
             var fileDto = new DocumentUploadDto(title);
 
-            await _documentService.UploadDocument(fileDto);
+            var newId = await _documentService.UploadDocument(fileDto);
+            
+            await RabbitService.SendToQueue(newId.ToString());
             return Ok();
         }
         
@@ -42,7 +44,6 @@ namespace api
         public async Task<ActionResult<List<DocumentDto>>> GetAllDocuments()
         {
             var documents = await _documentService.GetAllDocuments();
-            RabbitService.SendToQueue("Test Get ALL");
             return Ok(documents);
         }
         

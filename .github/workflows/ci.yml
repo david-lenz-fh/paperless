@@ -1,0 +1,82 @@
+name: CI / CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # ==========================================
+  # 1. FRONTEND: LINT, TEST & BUILD
+  # ==========================================
+  frontend-check:
+    name: Frontend (Angular)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./paperless-frontend
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: ./paperless-frontend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint --if-present
+
+      - name: Run Unit Tests
+        run: npm run test:ci
+
+      - name: Build Production Bundle
+        run: npm run build -- --configuration production
+
+  # ==========================================
+  # 2. BACKEND: BUILD & TEST
+  # ==========================================
+  backend-check:
+    name: Backend (.NET / C#)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Backend Projects
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run Backend Tests
+        run: dotnet test --no-build --configuration Release --verbosity normal
+
+  # ==========================================
+  # 3. DOCKER: COMPOSE BUILD VALIDATION
+  # ==========================================
+  docker-build-check:
+    name: Docker Compose Build Verification
+    needs: [frontend-check, backend-check]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Verify Docker Compose Build
+        run: docker compose build

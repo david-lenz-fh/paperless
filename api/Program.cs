@@ -3,10 +3,12 @@ using business_layer.Interfaces;
 using data;
 using data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,6 +32,7 @@ if (app.Environment.IsDevelopment())
 {
 }
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI(); 

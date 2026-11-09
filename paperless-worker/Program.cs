@@ -1,4 +1,6 @@
-﻿using paperless_worker.services;
+﻿using Minio;
+using paperless_worker;
+using paperless_worker.services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -6,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using paperless_worker;
 
 Console.WriteLine("=== [OCR WORKER] gestartet, verbinde mit RabbitMQ... ===");
 
@@ -30,7 +31,15 @@ await channel.QueueDeclareAsync(
 
 var consumer = new AsyncEventingBasicConsumer(channel);
 
-var ocrService = new OcrService();
+// mini initialisieren
+var minioClient = new MinioClient()
+    .WithEndpoint("minio:9000") // minio container in docker
+    .WithCredentials("admin", "admin")
+    .WithSSL(false)
+    .Build();
+
+// client an ocr übergebn
+var ocrService = new OcrService(minioClient);
 
 consumer.ReceivedAsync += async (_, ea) =>
 {

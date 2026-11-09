@@ -20,7 +20,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=build /app/publish .
 
-#kopiere test datei aus lokalem folder in image
-COPY test.pdf ./test.pdf
 
 ENTRYPOINT ["dotnet", "paperless-worker.dll"]

@@ -29,7 +29,7 @@ namespace business_layer
             _logger = logger;
         }
 
-        public async Task<int> UploadDocument(DocumentUploadDto uploadedDocumentDto)
+        public async Task<FileVersionDto> UploadDocument(DocumentUploadDto uploadedDocumentDto)
         {
             _logger.LogInformation("Starte Upload-Prozess für Dokument mit Titel: {Title}", uploadedDocumentDto.Title);
 
@@ -84,6 +84,7 @@ namespace business_layer
                 _logger.LogInformation("Datei für Dokument ID {DocumentId} in MinIO unter '{StoragePath}' gespeichert.",
                     newDocumentId, storagePath);
 
+
                 var fileVersionEntity = new FileVersion(
                     documentId: newDocumentId,
                     mimeType: uploadedDocumentDto.ContentType,
@@ -94,10 +95,23 @@ namespace business_layer
                     version: 1
                 );
 
-                await _documentRepository.CreateFile(fileVersionEntity);
+                int fileVersionId = await _documentRepository.CreateFile(fileVersionEntity);
                 _logger.LogInformation("Initiale Dateiversion (Version 1) für Dokument ID {DocumentId} erfolgreich in DB erstellt.", newDocumentId);
 
-                return newDocumentId;
+                var fileVersionDto = new FileVersionDto
+                {
+                    Id = fileVersionId, 
+                    DocumentId = newDocumentId,
+                    MimeType = uploadedDocumentDto.ContentType,
+                    FileSizeInBytes = uploadedDocumentDto.FileSize,
+                    FileHash = fileHash,
+                    StoragePath = storagePath,
+                    AiSummary = fileVersionEntity.AiSummary,
+                    UploadDate = DateTime.UtcNow, 
+                    Version = 1
+                };
+
+                return fileVersionDto;
             }
             catch (Exception ex) when (ex is not BusinessException)
             {

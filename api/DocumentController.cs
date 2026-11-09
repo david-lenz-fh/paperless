@@ -41,7 +41,7 @@ namespace api
             }
 
             await using var stream = file.OpenReadStream();
-            var fileDto = new DocumentUploadDto(
+            var fileVersionDto = new DocumentUploadDto(
                 title: title,
                 fileStream: stream,
                 contentType: file.ContentType,
@@ -49,12 +49,18 @@ namespace api
                 originalFileName: file.FileName
             );
 
-            var newId = await _documentService.UploadDocument(fileDto);
+            var newFileDTO = await _documentService.UploadDocument(fileVersionDto);
 
-            _logger.LogInformation("Sende neu erstellte Dokument-ID {DocumentId} an RabbitMQ Queue.", newId);
-            await RabbitService.SendToQueue(newId.ToString());
+            // title wird nicht mitgesendet
+            await RabbitService.SendDocumentUploadedMessageAsync(
+                documentId: newFileDTO.Id,
+                objectKey: newFileDTO.StoragePath,
+                fileName: title
+            );
 
-            return Ok(new { Id = newId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
+            _logger.LogInformation("Sende neu erstellte dokument {DocumentId} an RabbitMQ Queue.", newFileDTO.Id);
+
+            return Ok(new { newFileDTO.Id, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }
 
         [HttpGet]

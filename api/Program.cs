@@ -27,6 +27,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IFileStorageService, MinioFileStorageService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 // MinIO Client
 builder.Services.AddMinio(configureClient => configureClient

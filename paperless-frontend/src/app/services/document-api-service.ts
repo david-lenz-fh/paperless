@@ -1,5 +1,5 @@
 // document.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -10,9 +10,8 @@ import { DocumentDto, DocumentUploadDto, FileDto, DocumentUpdateDto } from '../m
 })
 
 export class DocumentApiService {
+  private readonly http = inject(HttpClient);
   private apiUrl = '/api/Document'; 
-
-  constructor(private http: HttpClient) { }
 
   private readonly refreshNeeded$ = new Subject<void>();
 

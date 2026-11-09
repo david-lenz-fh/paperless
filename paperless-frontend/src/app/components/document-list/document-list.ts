@@ -30,7 +30,7 @@ export class DocumentList implements OnInit {
     }
 
     return list.filter(doc => {
-      const name = doc.filename ?? (doc as any).Filename ?? '';
+      const name = doc.filename ?? '';
       return name.toLowerCase().includes(search);
     });
   });
@@ -56,7 +56,7 @@ export class DocumentList implements OnInit {
     });
   }
   viewFile(doc: DocumentDto){
-
+    console.log('Viewing document:', doc.id);
   }
   onSearch(searchTerm: string): void {
     this.searchTerm.set(searchTerm);

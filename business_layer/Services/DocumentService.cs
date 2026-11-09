@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using business_layer.Dtos;
 using business_layer.Exceptions;
@@ -14,11 +16,16 @@ namespace business_layer
     public class DocumentService : IDocumentService
     {
         private readonly IDocumentRepository _documentRepository;
+        private readonly IFileStorageService _fileStorageService;
         private readonly ILogger<DocumentService> _logger;
 
-        public DocumentService(IDocumentRepository docRepo, ILogger<DocumentService> logger)
+        public DocumentService(
+            IDocumentRepository docRepo,
+            IFileStorageService fileStorageService,
+            ILogger<DocumentService> logger)
         {
             _documentRepository = docRepo;
+            _fileStorageService = fileStorageService;
             _logger = logger;
         }
 
@@ -32,6 +39,12 @@ namespace business_layer
                 throw new DocumentValidationException("Dokumententitel darf nicht leer sein.");
             }
 
+            if (uploadedDocumentDto.FileStream == null || uploadedDocumentDto.FileSize <= 0)
+            {
+                _logger.LogWarning("Upload abgelehnt: Keine gültige Datei für '{Title}' übergeben.", uploadedDocumentDto.Title);
+                throw new DocumentValidationException("Es muss eine gültige Datei hochgeladen werden.");
+            }
+
             try
             {
                 var documentEntity = new Document(
@@ -42,25 +55,47 @@ namespace business_layer
                 int newDocumentId = await _documentRepository.CreateDocument(documentEntity);
                 _logger.LogInformation("Dokument erfolgreich mit ID {DocumentId} in DB angelegt.", newDocumentId);
 
-                // Placeholder Values
-                var dummyMimeType = "application/pdf";
-                var dummyFileSize = 1024567L; // 1MB
-                var dummyHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
-                var dummyStoragePath = $"/var/paperless/storage/dummy_{newDocumentId}.pdf";
-                var dummySummary = "KI-Zusammenfassung wird noch generiert...";
+                // SHA-256 Hash berechnen
+                using var sha256 = SHA256.Create();
+                byte[] hashBytes = await sha256.ComputeHashAsync(uploadedDocumentDto.FileStream);
+                string fileHash = Convert.ToHexString(hashBytes).ToLowerInvariant();
+
+                if (uploadedDocumentDto.FileStream.CanSeek)
+                {
+                    uploadedDocumentDto.FileStream.Position = 0;
+                }
+
+                string extension = Path.GetExtension(uploadedDocumentDto.OriginalFileName);
+                if (string.IsNullOrWhiteSpace(extension))
+                {
+                    extension = ".pdf";
+                }
+
+                string objectName = $"doc_{newDocumentId}_v1{extension}";
+
+                // Datei in MinIO speichern
+                string storagePath = await _fileStorageService.UploadFileAsync(
+                    objectName,
+                    uploadedDocumentDto.FileStream,
+                    uploadedDocumentDto.FileSize,
+                    uploadedDocumentDto.ContentType
+                );
+
+                _logger.LogInformation("Datei für Dokument ID {DocumentId} in MinIO unter '{StoragePath}' gespeichert.",
+                    newDocumentId, storagePath);
 
                 var fileVersionEntity = new FileVersion(
                     documentId: newDocumentId,
-                    mimeType: dummyMimeType,
-                    fileSizeInBytes: dummyFileSize,
-                    fileHash: dummyHash,
-                    storagePath: dummyStoragePath,
-                    aiSummary: dummySummary,
+                    mimeType: uploadedDocumentDto.ContentType,
+                    fileSizeInBytes: uploadedDocumentDto.FileSize,
+                    fileHash: fileHash,
+                    storagePath: storagePath,
+                    aiSummary: "KI-Zusammenfassung wird noch generiert...",
                     version: 1
                 );
 
                 await _documentRepository.CreateFile(fileVersionEntity);
-                _logger.LogInformation("Initiale Dateiversion (Version 1) für Dokument ID {DocumentId} erfolgreich erstellt.", newDocumentId);
+                _logger.LogInformation("Initiale Dateiversion (Version 1) für Dokument ID {DocumentId} erfolgreich in DB erstellt.", newDocumentId);
 
                 return newDocumentId;
             }
@@ -112,15 +147,21 @@ namespace business_layer
                 throw new DocumentNotFoundException(id);
             }
 
+            var files = await _documentRepository.GetFilesByDocumentId(id);
+            foreach (var file in files)
+            {
+                if (!string.IsNullOrWhiteSpace(file.StoragePath))
+                {
+                    var objectName = file.StoragePath.Contains('/')
+                        ? file.StoragePath.Split('/').Last()
+                        : file.StoragePath;
+
+                    await _fileStorageService.DeleteFileAsync(objectName);
+                }
+            }
+
             bool isDeleted = await _documentRepository.DeleteDocument(document);
-            if (isDeleted)
-            {
-                _logger.LogInformation("Dokument mit ID {DocumentId} erfolgreich gelöscht.", id);
-            }
-            else
-            {
-                _logger.LogError("Löschvorgang für Dokument mit ID {DocumentId} im Repository fehlgeschlagen.", id);
-            }
+            _logger.LogInformation("Dokument mit ID {DocumentId} erfolgreich gelöscht.", id);
 
             return isDeleted;
         }
@@ -129,7 +170,6 @@ namespace business_layer
         {
             _logger.LogDebug("Rufe Dateiversionen für Dokument ID {DocumentId} ab.", documentId);
 
-            // Prüfen, ob das Dokument überhaupt existiert
             var document = await _documentRepository.GetDocumentById(documentId);
             if (document == null)
             {
@@ -165,7 +205,6 @@ namespace business_layer
                 throw new DocumentNotFoundException(documentId);
             }
 
-            // Titel aktualisieren, falls geändert
             if (!string.IsNullOrWhiteSpace(documentToUpdate.Title) && existingDocument.Filename != documentToUpdate.Title)
             {
                 _logger.LogInformation("Aktualisiere Titel für Dokument {DocumentId} von '{OldTitle}' zu '{NewTitle}'.",
@@ -175,25 +214,17 @@ namespace business_layer
                 await _documentRepository.UpdateDocument(existingDocument);
             }
 
-            // Nächste Versionsnummer bestimmen
             var existingFiles = (await _documentRepository.GetFilesByDocumentId(documentId)).ToList();
             int nextVersion = existingFiles.Any() ? existingFiles.Max(f => f.Version) + 1 : 1;
-
-            _logger.LogInformation("Erstelle neue Dateiversion {Version} für Dokument ID {DocumentId}.", nextVersion, documentId);
-
-            var dummyMimeType = "application/pdf";
-            var dummyFileSize = 1024567L;
-            var dummyHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
-            var dummyStoragePath = $"/var/paperless/storage/dummy_{documentId}.pdf";
-            var dummySummary = "KI-Zusammenfassung wird noch generiert...";
+            var lastFile = existingFiles.OrderByDescending(f => f.Version).FirstOrDefault();
 
             var fileVersionEntity = new FileVersion(
                 documentId: documentId,
-                mimeType: dummyMimeType,
-                fileSizeInBytes: dummyFileSize,
-                fileHash: dummyHash,
-                storagePath: dummyStoragePath,
-                aiSummary: dummySummary,
+                mimeType: lastFile?.MimeType ?? "application/pdf",
+                fileSizeInBytes: lastFile?.FileSizeInBytes ?? 0L,
+                fileHash: lastFile?.FileHash ?? string.Empty,
+                storagePath: lastFile?.StoragePath ?? string.Empty,
+                aiSummary: lastFile?.AiSummary ?? "KI-Zusammenfassung wird noch generiert...",
                 version: nextVersion
             );
 
@@ -202,6 +233,49 @@ namespace business_layer
                 nextVersion, fileVersionId, documentId);
 
             return fileVersionId;
+        }
+
+        public async Task<DocumentDownloadDto> DownloadDocument(int id)
+        {
+            _logger.LogInformation("Starte Download für Dokument ID {DocumentId}.", id);
+
+            var document = await _documentRepository.GetDocumentById(id);
+            if (document == null)
+            {
+                _logger.LogWarning("Download fehlgeschlagen: Dokument mit ID {DocumentId} existiert nicht.", id);
+                throw new DocumentNotFoundException(id);
+            }
+
+            var files = (await _documentRepository.GetFilesByDocumentId(id)).ToList();
+            var latestFile = files.OrderByDescending(f => f.Version).FirstOrDefault();
+
+            if (latestFile == null || string.IsNullOrWhiteSpace(latestFile.StoragePath))
+            {
+                _logger.LogWarning("Download fehlgeschlagen: Keine Dateiversion für Dokument ID {DocumentId} gefunden.", id);
+                throw new DocumentNotFoundException(id);
+            }
+
+            var objectName = latestFile.StoragePath.Contains('/')
+                ? latestFile.StoragePath.Split('/').Last()
+                : latestFile.StoragePath;
+
+            var fileStream = await _fileStorageService.DownloadFileAsync(objectName);
+
+            // Dateiname sicherstellen (falls der User als Titel keine Endung wie .pdf eingegeben hat)
+            var downloadFileName = document.Filename;
+            var extension = Path.GetExtension(objectName);
+            if (!string.IsNullOrEmpty(extension) && !downloadFileName.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+            {
+                downloadFileName += extension;
+            }
+
+            _logger.LogInformation("Datei '{ObjectName}' für Dokument ID {DocumentId} erfolgreich aus Storage geladen.", objectName, id);
+
+            return new DocumentDownloadDto(
+                fileStream: fileStream,
+                contentType: latestFile.MimeType,
+                fileName: downloadFileName
+            );
         }
     }
 }

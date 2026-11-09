@@ -40,13 +40,21 @@ namespace api
                 return BadRequest("No file uploaded.");
             }
 
-            var fileDto = new DocumentUploadDto(title);
+            await using var stream = file.OpenReadStream();
+            var fileDto = new DocumentUploadDto(
+                title: title,
+                fileStream: stream,
+                contentType: file.ContentType,
+                fileSize: file.Length,
+                originalFileName: file.FileName
+            );
+
             var newId = await _documentService.UploadDocument(fileDto);
 
             _logger.LogInformation("Sende neu erstellte Dokument-ID {DocumentId} an RabbitMQ Queue.", newId);
             await RabbitService.SendToQueue(newId.ToString());
 
-            return Ok(new { Id = newId, Message = "Dokument erfolgreich hochgeladen." });
+            return Ok(new { Id = newId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }
 
         [HttpGet]
@@ -100,6 +108,16 @@ namespace api
             // Wirft DocumentNotFoundException -> Middleware übersetzt zu 404
             int fileVersionId = await _documentService.UpdateDocument(documentToUpdate);
             return Ok(new { FileVersionId = fileVersionId, Message = "Dokument erfolgreich aktualisiert." });
+        }
+
+        [HttpGet("{id}/download")]
+        public async Task<IActionResult> DownloadFile(int id)
+        {
+            _logger.LogInformation("HTTP GET /api/Document/{Id}/download empfangen.", id);
+
+            var downloadDto = await _documentService.DownloadDocument(id);
+
+            return File(downloadDto.FileStream, downloadDto.ContentType, downloadDto.FileName);
         }
     }
 }

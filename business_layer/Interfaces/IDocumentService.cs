@@ -12,6 +12,7 @@ namespace business_layer.Interfaces
         public Task<DocumentDto?> GetDocumentById(int id);
         public Task<IEnumerable<DocumentDto>> GetAllDocuments();
         public Task<int> UploadDocument(DocumentUploadDto uploadedFile);
+        public Task<DocumentDownloadDto> DownloadDocument(int id);
 
         public Task<bool> DeleteDocument(int id);
 

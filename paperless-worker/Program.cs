@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using paperless_worker.services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using paperless_worker;
 
 Console.WriteLine("=== [OCR WORKER] gestartet, verbinde mit RabbitMQ... ===");
 
@@ -27,17 +30,35 @@ await channel.QueueDeclareAsync(
 
 var consumer = new AsyncEventingBasicConsumer(channel);
 
-consumer.ReceivedAsync += async (model, ea) =>
+var ocrService = new OcrService();
+
+consumer.ReceivedAsync += async (_, ea) =>
 {
-    var body = ea.Body.ToArray();
-    var message = Encoding.UTF8.GetString(body);
-    
-    Console.WriteLine($"[OCR WORKER LOG] Nachricht empfangen für Dokument: '{message}'");
-    
-    await Task.CompletedTask;
+    try
+    {
+        var json = Encoding.UTF8.GetString(ea.Body.ToArray());
+        var msg = JsonSerializer.Deserialize<DocumentUploadedMessage>(json)
+                  ?? throw new InvalidOperationException("Ungültige Nachricht");
+
+        Console.WriteLine($"[OCR] Start für {msg.FileName} ({msg.DocumentId})");
+        // ocr ergebnis wird in "text" variable gespeichert
+        var text = await ocrService.ExtractTextAsync(msg);
+        Console.WriteLine($"[OCR] Fertig, {text.Length} Zeichen erkannt! Extrahierter text: {text}");
+
+        // Ergebnis an die nächste Queue (Indexing-Worker) weitergeben
+        var result = JsonSerializer.SerializeToUtf8Bytes(new { msg.DocumentId, msg.FileName, Text = text });
+        await channel.BasicPublishAsync("", "ocr_result_q", result);
+
+        await channel.BasicAckAsync(ea.DeliveryTag, multiple: false);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[OCR][ERROR] {ex.Message}");
+        await channel.BasicNackAsync(ea.DeliveryTag, false, requeue: false);
+    }
 };
 
-await channel.BasicConsumeAsync(queue: "test_q", autoAck: true, consumer: consumer);
+await channel.BasicConsumeAsync(queue: "test_q", autoAck: false, consumer: consumer);
 
 Console.WriteLine(" [*] waiting for messages...");
 

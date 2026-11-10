@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -15,11 +16,13 @@ namespace api
     public class DocumentController : ControllerBase
     {
         private readonly IDocumentService _documentService;
+        private readonly ISearchService _searchService;
         private readonly ILogger<DocumentController> _logger;
 
-        public DocumentController(IDocumentService docService, ILogger<DocumentController> logger)
+        public DocumentController(IDocumentService docService, ISearchService searchService, ILogger<DocumentController> logger)
         {
             _documentService = docService;
+            _searchService = searchService;
             _logger = logger;
         }
 
@@ -73,7 +76,21 @@ namespace api
             return Ok(documents);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<DocumentSearchResultDto>>> SearchDocuments([FromQuery] string q)
+        {
+            _logger.LogInformation("HTTP GET /api/Document/search?q={Query} empfangen.", q);
+
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return BadRequest("Der Suchparameter 'q' darf nicht leer sein.");
+            }
+
+            var results = await _searchService.SearchDocumentsAsync(q);
+            return Ok(results);
+        }
+
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<DocumentDto>> GetDocumentById(int id)
         {
             _logger.LogInformation("HTTP GET /api/Document/{Id} empfangen.", id);
@@ -82,7 +99,7 @@ namespace api
             return Ok(document);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteDocument(int id)
         {
             _logger.LogInformation("HTTP DELETE /api/Document/{Id} empfangen.", id);
@@ -91,7 +108,7 @@ namespace api
             return NoContent();
         }
 
-        [HttpGet("{documentId}/files")]
+        [HttpGet("{documentId:int}/files")]
         public async Task<IActionResult> GetFilesByDocumentId(int documentId)
         {
             _logger.LogInformation("HTTP GET /api/Document/{DocumentId}/files empfangen.", documentId);
@@ -100,7 +117,7 @@ namespace api
             return Ok(files);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateDocument(int id, [FromBody] DocumentUpdateDto documentToUpdate)
         {
             _logger.LogInformation("HTTP PUT /api/Document/{Id} empfangen.", id);
@@ -118,7 +135,7 @@ namespace api
             return Ok(new { FileVersionId = fileVersionId, Message = "Dokument erfolgreich aktualisiert." });
         }
 
-        [HttpGet("{id}/download")]
+        [HttpGet("{id:int}/download")]
         public async Task<IActionResult> DownloadFile(int id)
         {
             _logger.LogInformation("HTTP GET /api/Document/{Id}/download empfangen.", id);

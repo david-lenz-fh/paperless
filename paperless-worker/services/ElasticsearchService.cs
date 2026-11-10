@@ -1,22 +1,20 @@
-﻿using Elastic.Clients.Elasticsearch;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using paperless_worker.Models;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Elastic.Clients.Elasticsearch;
+using paperless_worker.Models;
 
-namespace paperless_worker.Services
+namespace paperless_worker.services
 {
     public class ElasticsearchService
     {
         private readonly ElasticsearchClient _client;
-        private readonly ILogger<ElasticsearchService> _logger;
         private const string IndexName = "documents";
 
-        public ElasticsearchService(IConfiguration configuration, ILogger<ElasticsearchService> logger)
+        public ElasticsearchService(string? uri = null)
         {
-            _logger = logger;
-            var uri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+            // Liest Elasticsearch__Uri direkt aus den Docker-Umgebungsvariablen
+            uri ??= Environment.GetEnvironmentVariable("Elasticsearch__Uri")
+                    ?? "http://elasticsearch:9200";
 
             var settings = new ElasticsearchClientSettings(new Uri(uri))
                 .DefaultIndex(IndexName);
@@ -26,9 +24,9 @@ namespace paperless_worker.Services
 
         public async Task IndexDocumentAsync(int id, string title, string filename, string ocrText)
         {
-            _logger.LogInformation("Indexiere Dokument ID {DocumentId} in Elasticsearch...", id);
+            Console.WriteLine($"[ES] Indexiere Dokument ID {id} in Elasticsearch...");
 
-            // Prüfen, ob der Index existiert, falls nicht, anlegen
+            // Index anlegen, falls noch nicht vorhanden
             var indexExistsResponse = await _client.Indices.ExistsAsync(IndexName);
             if (!indexExistsResponse.Exists)
             {
@@ -44,16 +42,15 @@ namespace paperless_worker.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            // Dokument indexieren (ID wird als Elasticsearch-Dokument-ID genutzt)
             var response = await _client.IndexAsync(doc, idx => idx.Index(IndexName).Id(id));
 
             if (response.IsValidResponse)
             {
-                _logger.LogInformation("Dokument ID {Id} erfolgreich in Elasticsearch indexiert.", id);
+                Console.WriteLine($"[ES] Dokument ID {id} erfolgreich in Elasticsearch indexiert.");
             }
             else
             {
-                _logger.LogError("Fehler beim Indexieren von Dokument ID {Id}: {Error}", id, response.DebugInformation);
+                Console.WriteLine($"[ES][ERROR] Fehler beim Indexieren: {response.DebugInformation}");
             }
         }
     }

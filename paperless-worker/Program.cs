@@ -34,7 +34,7 @@ var consumer = new AsyncEventingBasicConsumer(channel);
 // mini initialisieren
 var minioClient = new MinioClient()
     .WithEndpoint("minio:9000") // minio container in docker
-    .WithCredentials("admin", "admin")
+    .WithCredentials("minioadmin", "minioadminpassword")
     .WithSSL(false)
     .Build();
 

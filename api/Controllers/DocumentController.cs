@@ -51,11 +51,10 @@ namespace api
 
             var newFileDTO = await _documentService.UploadDocument(fileVersionDto);
 
-            // title wird nicht mitgesendet
             await RabbitService.SendDocumentUploadedMessageAsync(
                 documentId: newFileDTO.Id,
                 objectKey: newFileDTO.StoragePath,
-                fileName: title
+                fileName: file.FileName
             );
 
             _logger.LogInformation("Sende neu erstellte dokument {DocumentId} an RabbitMQ Queue.", newFileDTO.Id);

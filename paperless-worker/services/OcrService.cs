@@ -13,9 +13,8 @@ public class OcrService
 {
 
     private readonly IMinioClient _minioClient;
-    private readonly string _bucketName = "documents"; // Passe hier deinen Bucket-Namen an
+    private readonly string _bucketName = "documents"; 
 
-    // Ein einziger, sauberer Konstruktor für Dependency Injection
     public OcrService(IMinioClient minioClient)
     {
         _minioClient = minioClient;
@@ -28,11 +27,13 @@ public class OcrService
         try
         {
             var pdfPath = Path.Combine(workDir, "input.pdf");
-
-            // minio download
+            var cleanObjectKey = msg.ObjectKey.StartsWith("documents/")
+            ? msg.ObjectKey.Substring(10)
+            : msg.ObjectKey;
+            Console.WriteLine(cleanObjectKey);
             var getObjectArgs = new GetObjectArgs()
                 .WithBucket(_bucketName)
-                .WithObject(msg.ObjectKey) // zb. "doc_12_v1.pdf"
+                .WithObject(cleanObjectKey)
                 .WithCallbackStream(stream =>
                 {
                     using var fileStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write);
@@ -48,7 +49,6 @@ public class OcrService
             {
                 throw new InvalidOperationException("Die heruntergeladene Datei ist leer (0 Bytes)!");
             }
-
             //png erstellen mit ghostscript
             await RunAsync("gs", $"-dNOPAUSE -dBATCH -dQUIET -sDEVICE=png16m -r300 " +
                                  $"-sOutputFile=\"{workDir}/page-%03d.png\" \"{pdfPath}\"");

@@ -12,7 +12,6 @@ namespace paperless_worker.services
 
         public ElasticsearchService(string? uri = null)
         {
-            // Liest Elasticsearch__Uri direkt aus den Docker-Umgebungsvariablen
             uri ??= Environment.GetEnvironmentVariable("Elasticsearch__Uri")
                     ?? "http://elasticsearch:9200";
 
@@ -43,7 +42,7 @@ namespace paperless_worker.services
             };
 
             var response = await _client.IndexAsync(doc, idx => idx.Index(IndexName).Id(id));
-
+            4444
             if (response.IsValidResponse)
             {
                 Console.WriteLine($"[ES] Dokument ID {id} erfolgreich in Elasticsearch indexiert.");

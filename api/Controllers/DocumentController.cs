@@ -63,7 +63,7 @@ namespace api
 
             _logger.LogInformation("Sende strukturierte Nachricht für Dokument ID {DocumentId} an RabbitMQ Queue.", documentId);
 
-            await RabbitService.SendDocumentUploadedMessageAsync(documentId, objectKey, file.FileName);
+            await RabbitService.SendDocumentUploadedMessageAsync(documentId, objectKey, title);
 
             return Ok(new { Id = documentId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }

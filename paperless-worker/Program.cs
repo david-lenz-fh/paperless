@@ -34,25 +34,36 @@ var consumer = new AsyncEventingBasicConsumer(channel);
 // mini initialisieren
 var minioClient = new MinioClient()
     .WithEndpoint("minio:9000") // minio container in docker
-    .WithCredentials("admin", "admin")
+    .WithCredentials("minioadmin", "minioadminpassword")
     .WithSSL(false)
     .Build();
 
 // client an ocr übergebn
 var ocrService = new OcrService(minioClient);
 
+var jsonOptions = new JsonSerializerOptions
+{
+    PropertyNameCaseInsensitive = true
+};
+
 consumer.ReceivedAsync += async (_, ea) =>
 {
     try
     {
         var json = Encoding.UTF8.GetString(ea.Body.ToArray());
+        Console.WriteLine($"[DEBUG] Roh-Nachricht empfangen: {json}");
+
         var msg = JsonSerializer.Deserialize<DocumentUploadedMessage>(json)
                   ?? throw new InvalidOperationException("Ungültige Nachricht");
 
         Console.WriteLine($"[OCR] Start für {msg.FileName} ({msg.DocumentId})");
+
         // ocr ergebnis wird in "text" variable gespeichert
         var text = await ocrService.ExtractTextAsync(msg);
         Console.WriteLine($"[OCR] Fertig, {text.Length} Zeichen erkannt! Extrahierter text: {text}");
+
+        // Ergebnisqueue deklarieren
+        await channel.QueueDeclareAsync("ocr_result_q", durable: true, exclusive: false, autoDelete: false);
 
         // Ergebnis an die nächste Queue (Indexing-Worker) weitergeben
         var result = JsonSerializer.SerializeToUtf8Bytes(new { msg.DocumentId, msg.FileName, Text = text });

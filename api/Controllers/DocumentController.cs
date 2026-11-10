@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace api
 {
@@ -41,7 +43,7 @@ namespace api
             }
 
             await using var stream = file.OpenReadStream();
-            var fileVersionDto = new DocumentUploadDto(
+            var fileDto = new DocumentUploadDto(
                 title: title,
                 fileStream: stream,
                 contentType: file.ContentType,
@@ -49,18 +51,18 @@ namespace api
                 originalFileName: file.FileName
             );
 
-            var newFileDTO = await _documentService.UploadDocument(fileVersionDto);
+            var fileVersion = await _documentService.UploadDocument(fileDto);
+            int documentId = fileVersion.DocumentId;
 
-            // title wird nicht mitgesendet
-            await RabbitService.SendDocumentUploadedMessageAsync(
-                documentId: newFileDTO.Id,
-                objectKey: newFileDTO.StoragePath,
-                fileName: title
-            );
+            var objectKey = !string.IsNullOrWhiteSpace(fileVersion.StoragePath)
+                ? (fileVersion.StoragePath.Contains('/') ? fileVersion.StoragePath.Split('/').Last() : fileVersion.StoragePath)
+                : $"doc_{documentId}_v1{Path.GetExtension(file.FileName)}";
 
-            _logger.LogInformation("Sende neu erstellte dokument {DocumentId} an RabbitMQ Queue.", newFileDTO.Id);
+            _logger.LogInformation("Sende strukturierte Nachricht für Dokument ID {DocumentId} an RabbitMQ Queue.", documentId);
 
-            return Ok(new { newFileDTO.Id, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
+            await RabbitService.SendDocumentUploadedMessageAsync(documentId, objectKey, file.FileName);
+
+            return Ok(new { Id = documentId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }
 
         [HttpGet]

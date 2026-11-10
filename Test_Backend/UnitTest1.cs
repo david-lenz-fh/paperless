@@ -54,11 +54,13 @@ namespace Test_Backend
 
             var service = CreateService();
 
-            // Act
-            int id = await service.UploadDocument(uploadDto);
+            // Act - Jetzt FileVersionDto statt int empfangen
+            var result = await service.UploadDocument(uploadDto);
 
-            // Assert
-            Assert.Equal(42, id);
+            // Assert - DocumentId und Rückgabeobjekt prüfen
+            Assert.NotNull(result);
+            Assert.Equal(42, result.DocumentId);
+            Assert.Equal("documents/doc_42_v1.pdf", result.StoragePath);
 
             // Prüft, ob MinIO wirklich aufgerufen wurde
             _storageMock.Verify(

@@ -13,7 +13,6 @@
             Filename = filename;
             CategoryId = categoryId;
         }
-
         private Document() { }
     }
     public class DocumentCategory
@@ -53,6 +52,10 @@
 
         public int Version { get; private set; }
 
+        public void UpdateAiSummary(string aiSummary)
+        {
+            AiSummary = aiSummary;
+        }
         public FileVersion(
             int documentId,
             string mimeType,

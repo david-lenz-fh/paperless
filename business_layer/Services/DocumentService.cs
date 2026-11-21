@@ -128,7 +128,8 @@ namespace business_layer
             return documents.Select(doc => new DocumentDto
             {
                 Id = doc.Id,
-                Filename = doc.Filename
+                Filename = doc.Filename,
+                Category = doc.Category?.CategoryName??""
             });
         }
 
@@ -146,7 +147,8 @@ namespace business_layer
             return new DocumentDto
             {
                 Id = document.Id,
-                Filename = document.Filename
+                Filename = document.Filename,
+                Category = document.Category?.CategoryName ?? ""
             };
         }
 
@@ -290,6 +292,38 @@ namespace business_layer
                 contentType: latestFile.MimeType,
                 fileName: downloadFileName
             );
+        }
+
+
+        public async Task<bool> UpdateFileSummaryAndDocumentCategory(FileSummaryAndDocumentCategoryDto summaryCategory)
+        {
+            var existingDocument = await _documentRepository.GetDocumentById(summaryCategory.DocumentId);
+            if (existingDocument == null)
+            {
+                return false;
+            }
+            var existingFile = await _documentRepository.GetFileById(summaryCategory.FileId);
+            if (existingFile == null)
+            {
+                return false;
+            }
+
+            var existingCategory = await _documentRepository.FindCategoryByName(summaryCategory.Category);
+            existingDocument.CategoryId = existingCategory?.Id;
+            if (existingCategory == null)
+            {
+                existingDocument.CategoryId = await _documentRepository.AddCategory(new DocumentCategory(summaryCategory.Category));
+            }
+            if (!await _documentRepository.UpdateDocument(existingDocument))
+            {
+                return false;
+            }
+            existingFile.UpdateAiSummary(summaryCategory.Summary);
+            if (!await _documentRepository.UpdateFile(existingFile))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

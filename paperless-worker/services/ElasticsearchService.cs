@@ -42,7 +42,6 @@ namespace paperless_worker.services
             };
 
             var response = await _client.IndexAsync(doc, idx => idx.Index(IndexName).Id(id));
-            4444
             if (response.IsValidResponse)
             {
                 Console.WriteLine($"[ES] Dokument ID {id} erfolgreich in Elasticsearch indexiert.");

@@ -6,7 +6,7 @@ namespace api
 {
     public class RabbitService
     {
-        public static async Task SendDocumentUploadedMessageAsync(int documentId, string objectKey, string fileName)
+        public static async Task SendDocumentUploadedMessageAsync(int documentId, int fileId, string objectKey, string fileName)
         {
             ConnectionFactory factory = new ConnectionFactory();
             factory.Uri = new Uri("amqp://admin:admin@rabbitmq:5672/");
@@ -17,7 +17,7 @@ namespace api
             using var channel = await connection.CreateChannelAsync();
 
             await channel.QueueDeclareAsync(
-                queue: "test_q",
+                queue: "documentUploaded",
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -28,6 +28,7 @@ namespace api
             var messagePayload = new
             {
                 DocumentId = documentId,
+                FileId = fileId,
                 ObjectKey = objectKey,
                 FileName = fileName
             };
@@ -37,7 +38,7 @@ namespace api
             var body = Encoding.UTF8.GetBytes(jsonMessage);
 
             // Nachricht in queue senden
-            await channel.BasicPublishAsync(exchange: string.Empty, routingKey: "test_q", body: body);
+            await channel.BasicPublishAsync(exchange: string.Empty, routingKey: "documentUploaded", body: body);
 
             Console.WriteLine($" [x] Sent structured message for Document ID {documentId}");
         }

@@ -52,7 +52,9 @@ namespace data
         //get all documents
         public async Task<IEnumerable<Document>> GetAllDocuments()
         {
-            return await _context.Documents.ToListAsync();
+            return await _context.Documents
+                .Include(document => document.Category)
+                .ToListAsync();
         }
         public async Task<IEnumerable<FileVersion>> GetAllFiles()
         {
@@ -61,7 +63,9 @@ namespace data
 
         public async Task<Document?> GetDocumentById(int id)
         {
-            return await _context.Documents.FirstOrDefaultAsync(d => d.Id == id);
+            return await _context.Documents
+                .Include(document => document.Category)
+                .FirstOrDefaultAsync(document => document.Id == id);
         }
         public async Task<bool> DeleteFile(FileVersion file)
         {
@@ -78,7 +82,30 @@ namespace data
                 .Where(f => f.DocumentId == documentId)
                 .ToListAsync();
         }
-        
 
+        public async Task<DocumentCategory?> FindCategoryByName(string category)
+        {
+            return (await _context.DocumentCategories.FirstOrDefaultAsync(c => c.CategoryName == category));
+        }
+
+        public async Task<int> AddCategory(DocumentCategory category)
+        {
+            await _context.DocumentCategories.AddAsync(category);
+            await _context.SaveChangesAsync();
+
+            return category.Id;
+        }
+
+        public async Task<bool> UpdateFile(FileVersion file)
+        {
+            _context.FileVersions.Update(file);
+            int rowsAffected = await _context.SaveChangesAsync();
+            return rowsAffected > 0;
+        }
+
+        public async Task<FileVersion?> GetFileById(int fileId)
+        {
+            return await _context.FileVersions.FirstOrDefaultAsync(f => f.Id == fileId);
+        }
     }
 }

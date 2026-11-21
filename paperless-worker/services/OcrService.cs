@@ -41,7 +41,6 @@ public class OcrService
                 });
             await _minioClient.GetObjectAsync(getObjectArgs);
 
-            Console.WriteLine("testtestst222");
             var fileInfo = new FileInfo(pdfPath);
             Console.WriteLine($"[OCR] Datei aus MinIO heruntergeladen. Pfad: {pdfPath}, Größe: {fileInfo.Length} Bytes");
 

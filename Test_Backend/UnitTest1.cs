@@ -55,7 +55,7 @@ namespace Test_Backend
             var service = CreateService();
 
             // Act
-            int id = await service.UploadDocument(uploadDto);
+            int id = (await service.UploadDocument(uploadDto)).Id;
 
             // Assert
             Assert.Equal(42, id);

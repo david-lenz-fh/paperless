@@ -1,3 +1,4 @@
+using api;
 using api.Middleware;
 using business_layer;
 using business_layer.Interfaces;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IFileStorageService, MinioFileStorageService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddHostedService<SummaryConsumerService>();
 
 // MinIO Client
 builder.Services.AddMinio(configureClient => configureClient

@@ -13,7 +13,7 @@ namespace business_layer.Interfaces
         public Task<IEnumerable<DocumentDto>> GetAllDocuments();
         public Task<FileVersionDto> UploadDocument(DocumentUploadDto uploadedFile);
         public Task<DocumentDownloadDto> DownloadDocument(int id);
-
+        public Task<bool> UpdateFileSummaryAndDocumentCategory(FileSummaryAndDocumentCategoryDto summaryCategory);
         public Task<bool> DeleteDocument(int id);
 
         public Task<IEnumerable<FileVersionDto>> GetFilesByDocumentId(int documentId);

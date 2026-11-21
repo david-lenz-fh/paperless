@@ -56,6 +56,7 @@ namespace api
 
             var fileVersion = await _documentService.UploadDocument(fileDto);
             int documentId = fileVersion.DocumentId;
+            int fileId = fileVersion.Id;
 
             var objectKey = !string.IsNullOrWhiteSpace(fileVersion.StoragePath)
                 ? (fileVersion.StoragePath.Contains('/') ? fileVersion.StoragePath.Split('/').Last() : fileVersion.StoragePath)
@@ -63,7 +64,7 @@ namespace api
 
             _logger.LogInformation("Sende strukturierte Nachricht für Dokument ID {DocumentId} an RabbitMQ Queue.", documentId);
 
-            await RabbitService.SendDocumentUploadedMessageAsync(documentId, objectKey, title);
+            await RabbitService.SendDocumentUploadedMessageAsync(documentId, fileId, objectKey, title);
 
             return Ok(new { Id = documentId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }

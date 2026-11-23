@@ -3,6 +3,7 @@
 **/[oO]bj/
 *.user
 *.suo
+.env
 
 # bruno 
 **/tests/bruno/.env

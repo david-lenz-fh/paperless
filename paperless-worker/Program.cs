@@ -15,6 +15,19 @@ namespace paperless_worker
     {
         public static async Task Main(string[] args)
         {
+            try
+            {
+                await RunAsync(args);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[CRITICAL] Worker konnte nicht gestartet werden: {ex}");
+                Environment.ExitCode = 1;
+            }
+        }
+
+        private static async Task RunAsync(string[] args)
+        {
             Console.WriteLine("=== [OCR WORKER] gestartet, verbinde mit RabbitMQ... ===");
 
             var factory = new ConnectionFactory
@@ -83,7 +96,7 @@ namespace paperless_worker
                 try
                 {
                     var json = Encoding.UTF8.GetString(ea.Body.ToArray());
-                    Console.WriteLine($"[DEBUG] Nachricht empfangen: {json}");
+                    Console.WriteLine("[INFO] Nachricht für OCR-Verarbeitung empfangen.");
 
                     var msg = JsonSerializer.Deserialize<DocumentUploadedMessage>(json, jsonOptions)
                               ?? throw new InvalidOperationException("Ungültige Nachricht");
@@ -135,7 +148,7 @@ namespace paperless_worker
                     Console.WriteLine($"[GEMINI] Starte Summary für {msg.FileName} (ID: {msg.DocumentId})");
                     var summary = await GenAIService.summarizeText(msg.ExtractedText);
                     var category = await GenAIService.categorizeText(msg.ExtractedText);
-                    Console.WriteLine($"[GEMINI] Summary: {summary}, \nCategory: {category}");
+                    Console.WriteLine($"[GEMINI] Summary und Kategorie für Dokument {msg.DocumentId} erfolgreich erstellt.");
                     var summaryPayload = new
                     {
                         DocumentId = msg.DocumentId,

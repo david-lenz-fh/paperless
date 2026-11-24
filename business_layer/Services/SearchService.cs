@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using business_layer.Dtos;
+using business_layer.Exceptions;
 using business_layer.Interfaces;
 using Elastic.Clients.Elasticsearch;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +51,9 @@ namespace business_layer
             if (!searchResponse.IsValidResponse)
             {
                 _logger.LogError("Fehler bei der Elasticsearch-Suche: {Error}", searchResponse.DebugInformation);
-                return Enumerable.Empty<DocumentSearchResultDto>();
+                throw new ExternalServiceException(
+                    "Elasticsearch",
+                    new InvalidOperationException(searchResponse.DebugInformation));
             }
 
             // Treffer auf DTO mappen

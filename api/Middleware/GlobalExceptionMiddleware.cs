@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net;
 using System.Text.Json;
 using business_layer.Exceptions;
 
@@ -37,6 +38,10 @@ public class GlobalExceptionMiddleware
                 (HttpStatusCode.NotFound, notFoundEx.Message),
             DocumentValidationException validationEx =>
                 (HttpStatusCode.BadRequest, validationEx.Message),
+            ExternalServiceException externalServiceException =>
+                (HttpStatusCode.ServiceUnavailable, externalServiceException.Message),
+            TimeoutException =>
+                (HttpStatusCode.ServiceUnavailable, "An external service did not respond in time."),
             _ =>
                 (HttpStatusCode.InternalServerError, "An unexpected internal server error occurred.")
         };
@@ -44,6 +49,12 @@ public class GlobalExceptionMiddleware
         if (statusCode == HttpStatusCode.InternalServerError)
         {
             _logger.LogError(exception, "Unhandled exception occurred: {Message}", exception.Message);
+        }
+
+        if (context.Response.HasStarted)
+        {
+            _logger.LogWarning("The HTTP response has already started; the exception cannot be converted to an error response.");
+            throw exception;
         }
         else
         {

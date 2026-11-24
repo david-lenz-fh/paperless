@@ -90,6 +90,28 @@ namespace Test_Backend
         }
 
         [Fact]
+        public async Task UploadDocument_PropagatesStorageFailure()
+        {
+            var bytes = Encoding.UTF8.GetBytes("data");
+            using var stream = new MemoryStream(bytes);
+            var uploadDto = new DocumentUploadDto(
+                "Test document", stream, "application/pdf", bytes.Length, "test.pdf");
+
+            _repoMock.Setup(r => r.CreateDocument(It.IsAny<Document>())).ReturnsAsync(1);
+            _storageMock
+                .Setup(s => s.UploadFileAsync(
+                    It.IsAny<string>(), It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<string>()))
+                .ThrowsAsync(new InvalidOperationException("Storage unavailable"));
+
+            var service = CreateService();
+
+            await Assert.ThrowsAsync<InvalidOperationException>(() =>
+                service.UploadDocument(uploadDto));
+
+            _repoMock.Verify(r => r.CreateFile(It.IsAny<FileVersion>()), Times.Never);
+        }
+
+        [Fact]
         public async Task GetAllDocuments_CallsRepository()
         {
             var documents = new List<Document>

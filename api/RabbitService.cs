@@ -1,17 +1,27 @@
 ﻿using RabbitMQ.Client;
+using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 
-namespace api
-{
-    public class RabbitService
-    {
-        public static async Task SendDocumentUploadedMessageAsync(int documentId, int fileId, string objectKey, string fileName)
-        {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.Uri = new Uri("amqp://admin:admin@rabbitmq:5672/");
+namespace api;
 
-            Console.WriteLine($" [x] Sending Document Uploaded Message for ID: {documentId}, Path: {objectKey} ...");
+public class RabbitService
+{
+    private readonly ILogger<RabbitService> _logger;
+
+    public RabbitService(ILogger<RabbitService> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task SendDocumentUploadedMessageAsync(int documentId, int fileId, string objectKey, string fileName)
+    {
+        try
+        {
+            _logger.LogInformation("Publishing document {DocumentId} to RabbitMQ.", documentId);
+
+            var factory = new ConnectionFactory { Uri = new Uri("amqp://admin:admin@rabbitmq:5672/") };
 
             using var connection = await factory.CreateConnectionAsync();
             using var channel = await connection.CreateChannelAsync();
@@ -40,7 +50,12 @@ namespace api
             // Nachricht in queue senden
             await channel.BasicPublishAsync(exchange: string.Empty, routingKey: "documentUploaded", body: body);
 
-            Console.WriteLine($" [x] Sent structured message for Document ID {documentId}");
+            _logger.LogInformation("Document {DocumentId} was published to RabbitMQ.", documentId);
+        }
+        catch (Exception exception)
+        {
+            _logger.LogError(exception, "Failed to publish document {DocumentId} to RabbitMQ.", documentId);
+            throw;
         }
     }
 }

@@ -17,12 +17,14 @@ namespace api
     {
         private readonly IDocumentService _documentService;
         private readonly ISearchService _searchService;
+        private readonly RabbitService _rabbitService;
         private readonly ILogger<DocumentController> _logger;
 
-        public DocumentController(IDocumentService docService, ISearchService searchService, ILogger<DocumentController> logger)
+        public DocumentController(IDocumentService docService, ISearchService searchService, RabbitService rabbitService, ILogger<DocumentController> logger)
         {
             _documentService = docService;
             _searchService = searchService;
+            _rabbitService = rabbitService;
             _logger = logger;
         }
 
@@ -64,7 +66,7 @@ namespace api
 
             _logger.LogInformation("Sende strukturierte Nachricht für Dokument ID {DocumentId} an RabbitMQ Queue.", documentId);
 
-            await RabbitService.SendDocumentUploadedMessageAsync(documentId, fileId, objectKey, title);
+            await _rabbitService.SendDocumentUploadedMessageAsync(documentId, fileId, objectKey, title);
 
             return Ok(new { Id = documentId, Message = "Dokument erfolgreich in DB und MinIO gespeichert." });
         }

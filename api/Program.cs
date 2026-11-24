@@ -29,6 +29,7 @@ builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IFileStorageService, MinioFileStorageService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<RabbitService>();
 builder.Services.AddHostedService<SummaryConsumerService>();
 
 // MinIO Client
@@ -68,8 +69,19 @@ app.MapControllers();
 // DB-Migration
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<PaperlessDbContext>();
-    dbContext.Database.Migrate();
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseMigration");
+    try
+    {
+        logger.LogInformation("Starting database migration.");
+        var dbContext = scope.ServiceProvider.GetRequiredService<PaperlessDbContext>();
+        dbContext.Database.Migrate();
+        logger.LogInformation("Database migration completed successfully.");
+    }
+    catch (Exception exception)
+    {
+        logger.LogCritical(exception, "Database migration failed. The API cannot start safely.");
+        throw;
+    }
 }
 
 app.Run();

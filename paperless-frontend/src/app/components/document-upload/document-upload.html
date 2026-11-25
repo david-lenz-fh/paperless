@@ -27,6 +27,7 @@
           id="file" 
           type="file" 
           (change)="onFileSelected($event)" 
+          accept="application/pdf,image/*,image/webp"
           class="form-control-file"
         />
         @if (fileError) {

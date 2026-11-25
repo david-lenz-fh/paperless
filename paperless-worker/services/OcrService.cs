@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,13 @@ namespace paperless_worker.services;
 
 public class OcrService
 {
-
     private readonly IMinioClient _minioClient;
-    private readonly string _bucketName = "documents"; 
+    private readonly string _bucketName = "documents";
+
+    private static readonly HashSet<string> SupportedImageExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp"
+    };
 
     public OcrService(IMinioClient minioClient)
     {
@@ -24,43 +29,78 @@ public class OcrService
     {
         var workDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(workDir);
+
         try
         {
-            var pdfPath = Path.Combine(workDir, "input.pdf");
             var cleanObjectKey = msg.ObjectKey.StartsWith("documents/")
-            ? msg.ObjectKey.Substring(10)
-            : msg.ObjectKey;
-            Console.WriteLine(cleanObjectKey);
+                ? msg.ObjectKey.Substring(10)
+                : msg.ObjectKey;
+
+            // Echte Dateiendung ermitteln (Fallback auf .pdf)
+            var extension = Path.GetExtension(cleanObjectKey);
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                extension = Path.GetExtension(msg.FileName);
+            }
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                extension = ".pdf";
+            }
+
+            var inputPath = Path.Combine(workDir, $"input{extension.ToLowerInvariant()}");
+            Console.WriteLine($"[OCR] Lade Objekt '{cleanObjectKey}' als '{inputPath}' herunter...");
+
             var getObjectArgs = new GetObjectArgs()
                 .WithBucket(_bucketName)
                 .WithObject(cleanObjectKey)
                 .WithCallbackStream(stream =>
                 {
-                    using var fileStream = new FileStream(pdfPath, FileMode.Create, FileAccess.Write);
+                    using var fileStream = new FileStream(inputPath, FileMode.Create, FileAccess.Write);
                     stream.CopyTo(fileStream);
                 });
             await _minioClient.GetObjectAsync(getObjectArgs);
 
-            var fileInfo = new FileInfo(pdfPath);
-            Console.WriteLine($"[OCR] Datei aus MinIO heruntergeladen. Pfad: {pdfPath}, Größe: {fileInfo.Length} Bytes");
+            var fileInfo = new FileInfo(inputPath);
+            Console.WriteLine($"[OCR] Datei aus MinIO heruntergeladen. Pfad: {inputPath}, Größe: {fileInfo.Length} Bytes");
 
             if (fileInfo.Length == 0)
             {
                 throw new InvalidOperationException("Die heruntergeladene Datei ist leer (0 Bytes)!");
             }
-            //png erstellen mit ghostscript
-            await RunAsync("gs", $"-dNOPAUSE -dBATCH -dQUIET -sDEVICE=png16m -r300 " +
-                                 $"-sOutputFile=\"{workDir}/page-%03d.png\" \"{pdfPath}\"");
 
             var sb = new StringBuilder();
-            foreach (var png in Directory.GetFiles(workDir, "page-*.png").OrderBy(f => f))
-                sb.AppendLine(await RunAsync("tesseract", $"\"{png}\" stdout -l eng+deu"));
+
+            // Fall 1: PDF -> Erst über Ghostscript in PNG-Seiten zerlegen
+            if (extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("[OCR] PDF erkannt – konvertiere Seiten mit Ghostscript...");
+                await RunAsync("gs", $"-dNOPAUSE -dBATCH -dQUIET -sDEVICE=png16m -r300 " +
+                                     $"-sOutputFile=\"{workDir}/page-%03d.png\" \"{inputPath}\"");
+
+                foreach (var png in Directory.GetFiles(workDir, "page-*.png").OrderBy(f => f))
+                {
+                    sb.AppendLine(await RunAsync("tesseract", $"\"{png}\" stdout -l eng+deu"));
+                }
+            }
+            // Fall 2: Bild (z. B. Handyfoto) -> Ghostscript überspringen und direkt an Tesseract übergeben
+            else if (SupportedImageExtensions.Contains(extension))
+            {
+                Console.WriteLine($"[OCR] Bild ({extension}) erkannt – starte Tesseract direkt...");
+                sb.AppendLine(await RunAsync("tesseract", $"\"{inputPath}\" stdout -l eng+deu"));
+            }
+            else
+            {
+                throw new NotSupportedException($"Dateiformat '{extension}' wird für OCR nicht unterstützt.");
+            }
 
             return sb.ToString();
         }
         finally
         {
-            Directory.Delete(workDir, recursive: true);
+            if (Directory.Exists(workDir))
+            {
+                Directory.Delete(workDir, recursive: true);
+            }
         }
     }
 
@@ -80,9 +120,3 @@ public class OcrService
         return await stdout;
     }
 }
-
-
-/*await _minio.GetObjectAsync(new GetObjectArgs()
-                .WithBucket("documents")
-                .WithObject(msg.ObjectKey)
-                .WithFile(pdfPath));*/

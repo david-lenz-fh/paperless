@@ -29,7 +29,7 @@ export class DocumentUploadComponent implements OnChanges {
   errorMessage: string | null = null;
 
   // Erlaubte File-Types
-  readonly allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'application/msword', 'text/plain'];
+  readonly allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/webp', 'application/msword', 'text/plain'];
   readonly maxFileSizeInMB = 20;
 
   constructor() {

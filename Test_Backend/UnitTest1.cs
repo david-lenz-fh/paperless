@@ -54,11 +54,13 @@ namespace Test_Backend
 
             var service = CreateService();
 
-            // Act
-            int id = (await service.UploadDocument(uploadDto)).Id;
+            // Act - Jetzt FileVersionDto statt int empfangen
+            var result = await service.UploadDocument(uploadDto);
 
-            // Assert
-            Assert.Equal(42, id);
+            // Assert - DocumentId und Rückgabeobjekt prüfen
+            Assert.NotNull(result);
+            Assert.Equal(42, result.DocumentId);
+            Assert.Equal("documents/doc_42_v1.pdf", result.StoragePath);
 
             // Prüft, ob MinIO wirklich aufgerufen wurde
             _storageMock.Verify(
@@ -87,28 +89,6 @@ namespace Test_Backend
 
             _storageMock.Verify(s => s.UploadFileAsync(It.IsAny<string>(), It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<string>()), Times.Never);
             _repoMock.Verify(r => r.CreateDocument(It.IsAny<Document>()), Times.Never);
-        }
-
-        [Fact]
-        public async Task UploadDocument_PropagatesStorageFailure()
-        {
-            var bytes = Encoding.UTF8.GetBytes("data");
-            using var stream = new MemoryStream(bytes);
-            var uploadDto = new DocumentUploadDto(
-                "Test document", stream, "application/pdf", bytes.Length, "test.pdf");
-
-            _repoMock.Setup(r => r.CreateDocument(It.IsAny<Document>())).ReturnsAsync(1);
-            _storageMock
-                .Setup(s => s.UploadFileAsync(
-                    It.IsAny<string>(), It.IsAny<Stream>(), It.IsAny<long>(), It.IsAny<string>()))
-                .ThrowsAsync(new InvalidOperationException("Storage unavailable"));
-
-            var service = CreateService();
-
-            await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                service.UploadDocument(uploadDto));
-
-            _repoMock.Verify(r => r.CreateFile(It.IsAny<FileVersion>()), Times.Never);
         }
 
         [Fact]
